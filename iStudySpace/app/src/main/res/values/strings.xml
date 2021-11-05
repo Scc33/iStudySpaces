@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">iStudySpace</string>
+    <string name="filter_1">Group Work</string>
+    <string name="filter_2">Coffee</string>
+    <string name="filter_3">Food</string>
+    <string name="filter_4">Any</string>
+    <string name="filter_5">Quiet</string>
+    <string name="filter_6">Ambient</string>
+    <string name="filter_7">Loud</string>
 </resources>
