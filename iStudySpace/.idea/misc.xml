@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/activity_main.xml" value="0.2796875" />
+        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/activity_main.xml" value="0.165" />
+        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/menu.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/search_toolbar.xml" value="0.1" />
+        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/toolbar.xml" value="0.1" />
+        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/menu/nav_menu.xml" value="0.13020833333333334" />
       </map>
     </option>
   </component>
