@@ -2,6 +2,10 @@ plugins {
     id 'com.android.application'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def MAPS_API_KEY = properties.getProperty('google.map.key')
+
 android {
     compileSdk 31
 
@@ -11,7 +15,7 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        manifestPlaceholders = [MAPS_API_KEY: MAPS_API_KEY]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
