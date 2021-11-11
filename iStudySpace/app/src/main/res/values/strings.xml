@@ -1,10 +1,22 @@
 <resources>
     <string name="app_name">iStudySpace</string>
-    <string name="filter_1">Group Work</string>
-    <string name="filter_2">Coffee</string>
-    <string name="filter_3">Food</string>
-    <string name="filter_4">Any</string>
-    <string name="filter_5">Quiet</string>
-    <string name="filter_6">Ambient</string>
-    <string name="filter_7">Loud</string>
+    <string-array name="filters">
+        <string name="filter_1">Group Work</string>
+        <string name="filter_2">Coffee</string>
+        <string name="filter_3">Food</string>
+        <string name="filter_4">Any</string>
+        <string name="filter_5">Quiet</string>
+        <string name="filter_6">Ambient</string>
+        <string name="filter_7">Loud</string>
+    </string-array>
+    <string-array name="study_spots">
+        <item>Grainger Library</item>
+        <item>Undergraduate Library</item>
+        <item>Campus Instructional Facility</item>
+        <item>ECE Building</item>
+        <item>ACEs Library</item>
+        <item>Illini Union</item>
+        <item>Siebel Center for Design</item>
+        <item>Sydney Lu Building</item>
+    </string-array>
 </resources>
