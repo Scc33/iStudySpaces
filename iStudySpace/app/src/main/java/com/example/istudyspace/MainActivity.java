@@ -2,9 +2,12 @@ package com.example.istudyspace;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationServices;
@@ -29,11 +32,12 @@ import androidx.fragment.app.FragmentActivity;
 //import com.google.android.gms.location.LocationListener;
 //import com.google.android.gms.location.LocationRequest;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
 //    Location currentLocation;
 //    FusedLocationProviderClient fusedLocationProviderClient;
 //    private static final int REQUEST_CODE = 101;
+    private Button filtersButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
 
         mapFragment.getMapAsync(this);
+
+        filtersButton = (Button) findViewById(R.id.filters);
+
+        filtersButton.setOnClickListener(this);
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.filters) {
+            Intent intent = new Intent(this, FilterActivity.class);
+            startActivity(intent);
+        }
     }
 
 //    private void fetchLocation() {
