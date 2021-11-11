@@ -3,11 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/activity_main.xml" value="0.165" />
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/menu.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/search_toolbar.xml" value="0.1" />
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/toolbar.xml" value="0.1" />
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/menu/nav_menu.xml" value="0.13020833333333334" />
+        <entry key="app/src/main/res/layout/activity_filter.xml" value="0.20520833333333333" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/filter_page.xml" value="0.3319746376811594" />
+        <entry key="app/src/main/res/menu/nav_menu.xml" value="0.20520833333333333" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22135416666666666" />
       </map>
     </option>
   </component>

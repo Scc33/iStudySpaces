@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="Grainger">
+        <item>Grainger Library</item>
+        <item>40.11270</item>
+        <item>-88.22692</item>
+    </string-array>
+</resources>
