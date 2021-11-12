@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         googleMap.addMarker(new MarkerOptions()
                 .position(places[0])
-                .title("Illini Union"));
+                .title("Illini Union")
+                .snippet("Zoom 6"));
 
         googleMap.addMarker(new MarkerOptions()
                 .position(places[1])
