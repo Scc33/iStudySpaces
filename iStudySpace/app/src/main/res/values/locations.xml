@@ -4,4 +4,39 @@
         <item>40.11270</item>
         <item>-88.22692</item>
     </string-array>
+    <string-array name="IlliniUnion">
+        <item>Illini Union</item>
+        <item>40.10954764345154</item>
+        <item>-88.22724722308422</item>
+    </string-array>
+    <string-array name="UGL">
+        <item>UGL</item>
+        <item>40.10485852066087</item>
+        <item>-88.22622205875562</item>
+    </string-array>
+    <string-array name="FunkLibrary">
+        <item>Funk Library</item>
+        <item>40.102880814557395</item>
+        <item>-88.22425868195258</item>
+    </string-array>
+    <string-array name="CaffeParadiso">
+        <item>Caffe Paradiso</item>
+        <item>40.10600026564582</item>
+        <item>-88.21903799312537</item>
+    </string-array>
+    <string-array name="Bearology">
+        <item>Grainger Library</item>
+        <item>40.11682456862754</item>
+        <item>-88.22881269128017</item>
+    </string-array>
+    <string-array name="IlliniUnionBookstore">
+        <item>Illini Union Bookstore</item>
+        <item>40.1084316354503</item>
+        <item>-88.22968738268322</item>
+    </string-array>
+    <string-array name="LoomisLaboratory">
+        <item>Loomis Laboratory</item>
+        <item>40.11101728663284</item>
+        <item>-88.22391634018292</item>
+    </string-array>
 </resources>

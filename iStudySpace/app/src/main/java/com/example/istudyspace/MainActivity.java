@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import java.io.*;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -89,6 +90,53 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.addMarker(new MarkerOptions()
                 .position(Grainger)
                 .title("Grainger Library"));
+
+        LatLng[] places = {new LatLng(40.10954764345154, -88.22724722308422),
+                new LatLng(40.10485852066087, -88.22622205875562), new LatLng(40.102880814557395, -88.22425868195258),
+                new LatLng(40.10600026564582, -88.21903799312537), new LatLng(40.11682456862754, -88.22881269128017),
+                new LatLng(40.1084316354503, -88.22968738268322), new LatLng(40.11101728663284, -88.22391634018292)};
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(places[0])
+                .title("Illini Union"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(places[1])
+                .title("UGL"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(places[2])
+                .title("Funk Library"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(places[3])
+                .title("Caffe Paradiso"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(places[4])
+                .title("Bearology"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(places[5])
+                .title("Illini Union Bookstore"));
+
+        googleMap.addMarker(new MarkerOptions()
+                .position(places[6])
+                .title("Loomis Laboratory"));
+
+//        LatLng[] places = new LatLng[100];
+//        String filePath = "../../res/values/locations/locations.txt";
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader(filePath));
+//            String st = "";
+//            while ((st = br.readLine()) != null) {
+//                System.out.println(st);
+//            }
+//        } catch (Exception e) {
+//
+//        }
+
+//        for (int i = 0; i <)
 
         LatLng cur_position = new LatLng(40.108014, -88.227265);
         MarkerOptions markerOptions = new MarkerOptions().position(cur_position).title("You")
