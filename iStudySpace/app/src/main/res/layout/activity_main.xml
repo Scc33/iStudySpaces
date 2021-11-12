@@ -24,16 +24,31 @@
             android:text="Zoom"
             />
     </com.google.android.material.tabs.TabLayout>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/filters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filters" />
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/maps"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:elevation="2dp"
+            android:text="Filters"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/maps"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        app:layout_constraintHorizontal_bias="1.0"-->
 <!--        app:layout_constraintLeft_toLeftOf="parent"-->
