@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.IStudySpace" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.IStudySpace" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/Illini_Orange</item>
         <item name="colorPrimaryVariant">@color/Illini_Blue</item>
