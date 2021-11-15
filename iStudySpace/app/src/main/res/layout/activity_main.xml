@@ -7,8 +7,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-<!--    <include android:menu= "@menu/nav_menu"/>-->
-<!--        <include layout="@layout/search_toolbar" />-->
+    <!--    <include android:menu= "@menu/nav_menu"/>-->
+    <!--        <include layout="@layout/search_toolbar" />-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
@@ -30,68 +30,69 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/filters"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:elevation="2dp"
-            android:text="Filters"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/zoomFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginStart="10dp"
-            android:elevation="2dp"
-            android:visibility="gone"
-            android:text="Zoom"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filters" />
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/zoomInteractionToggle"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:elevation="2dp"
-            android:visibility="gone"
             android:orientation="vertical"
-            app:selectionRequired="true"
-            app:singleSelection="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filters">
+            app:layout_constraintTop_toTopOf="parent"
+            >
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/anyButton"
+                android:id="@+id/filters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/filter_8"
-                />
+                android:layout_gravity="top"
+                android:text="Filters"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/lowButton"
+                android:id="@+id/zoomFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/filter_9"
+                android:layout_gravity="top"
+                android:visibility="visible"
+                android:text="Zoom"
                 />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/medButton"
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/zoomInteractionToggle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/filter_10"
-                />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/maxButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/filter_11"
-                />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+                android:gravity="center"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:orientation="vertical"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/anyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_8"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/lowButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_9"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/medButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_10"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/maxButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_11"
+                    />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </LinearLayout>
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/maps"
             android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -102,22 +103,22 @@
             tools:layout_editor_absoluteY="113dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.0"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.0"-->
 
 
 
 </LinearLayout>
 
-<!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/maps"-->
-<!--    android:name="com.google.android.gms.maps.SupportMapFragment"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".MainActivity"-->
-<!--    />-->
+    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:id="@+id/maps"-->
+    <!--    android:name="com.google.android.gms.maps.SupportMapFragment"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    tools:context=".MainActivity"-->
+    <!--    />-->
