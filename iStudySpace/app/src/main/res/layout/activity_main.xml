@@ -68,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filters">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/allButton"
+                android:id="@+id/anyButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/filter_8"
@@ -97,6 +97,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:elevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="113dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>

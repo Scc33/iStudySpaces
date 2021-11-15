@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         filtersButton = (Button) findViewById(R.id.filters);
         zoomFiltersButton = (Button) findViewById(R.id.zoomFilter);
         zoomInteractionsTabGroup = (MaterialButtonToggleGroup) findViewById(R.id.zoomInteractionToggle);
-        anyInteraction = (Button) findViewById(R.id.allButton);
+        anyInteraction = (Button) findViewById(R.id.anyButton);
         minInteraction = (Button) findViewById(R.id.lowButton);
         medInteraction = (Button) findViewById(R.id.medButton);
         maxInteraction = (Button) findViewById(R.id.maxButton);
@@ -100,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         filtersButton.setOnClickListener(this);
         zoomFiltersButton.setOnClickListener(this);
         zoomInteractionsTabGroup.setOnClickListener(this);
+        anyInteraction.setOnClickListener(this);
+        minInteraction.setOnClickListener(this);
+        medInteraction.setOnClickListener(this);
+        maxInteraction.setOnClickListener(this);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -135,16 +139,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (v.getId() == R.id.zoomFilter) {
             zoomFiltersButton.setVisibility(View.GONE);
             zoomInteractionsTabGroup.setVisibility(View.VISIBLE);
-        } else if (v.getId() == R.id.zoomInteractionToggle) {
-            int checkedButtonId = zoomInteractionsTabGroup.getCheckedButtonId();
-            System.out.println("toggle" + checkedButtonId);
-            if (checkedButtonId != NO_ID) {
-                MaterialButton checkedButton = findViewById(checkedButtonId);
-                String buttonText = checkedButton.getText().toString();
-                Toast.makeText(this, buttonText, Toast.LENGTH_SHORT).show();
-                zoomFiltersButton.setVisibility(View.VISIBLE);
-                zoomInteractionsTabGroup.setVisibility(View.GONE);
-            }
+        } else if (v.getId() == R.id.anyButton) {
+            String buttonText = anyInteraction.getText().toString();
+            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
+            zoomFiltersButton.setVisibility(View.VISIBLE);
+            zoomInteractionsTabGroup.setVisibility(View.GONE);
+        } else if (v.getId() == R.id.lowButton) {
+            String buttonText = anyInteraction.getText().toString();
+            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
+            zoomFiltersButton.setVisibility(View.VISIBLE);
+            zoomInteractionsTabGroup.setVisibility(View.GONE);
+        } else if (v.getId() == R.id.medButton) {
+            String buttonText = anyInteraction.getText().toString();
+            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
+            zoomFiltersButton.setVisibility(View.VISIBLE);
+            zoomInteractionsTabGroup.setVisibility(View.GONE);
+        } else if (v.getId() == R.id.maxButton) {
+            String buttonText = anyInteraction.getText().toString();
+            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
+            zoomFiltersButton.setVisibility(View.VISIBLE);
+            zoomInteractionsTabGroup.setVisibility(View.GONE);
         }
     }
 
