@@ -9,10 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class FilterActivity extends AppCompatActivity implements View.OnClickListener {
     private Button applyButton;
+    private String tabOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            tabOn = extras.getString("tab");
+            //The key argument here must match that used in the other activity
+        }
         setContentView(R.layout.activity_filter);
 
         applyButton = (Button) findViewById(R.id.apply);
@@ -23,6 +29,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if (v.getId() == R.id.apply) {
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("tab", tabOn);
             startActivity(intent);
         }
     }

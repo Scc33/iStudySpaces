@@ -43,7 +43,12 @@ import androidx.fragment.app.FragmentActivity;
 //import com.google.android.gms.common.api.GoogleApiClient;
 //import com.google.android.gms.location.LocationListener;
 //import com.google.android.gms.location.LocationRequest;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+
+import static android.view.View.NO_ID;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
@@ -51,10 +56,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //    FusedLocationProviderClient fusedLocationProviderClient;
 //    private static final int REQUEST_CODE = 101;
     private Button filtersButton;
+    private String tabOn = "Study";
+    private Button zoomFiltersButton;
+    private MaterialButtonToggleGroup zoomInteractionsTabGroup;
+    private Button anyInteraction;
+    private Button minInteraction;
+    private Button medInteraction;
+    private Button maxInteraction;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            tabOn = extras.getString("tab");
+        }
         setContentView(R.layout.activity_main);
         // fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         // fetchLocation();
@@ -63,14 +80,71 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         filtersButton = (Button) findViewById(R.id.filters);
+        zoomFiltersButton = (Button) findViewById(R.id.zoomFilter);
+        zoomInteractionsTabGroup = (MaterialButtonToggleGroup) findViewById(R.id.zoomInteractionToggle);
+        anyInteraction = (Button) findViewById(R.id.allButton);
+        minInteraction = (Button) findViewById(R.id.lowButton);
+        medInteraction = (Button) findViewById(R.id.medButton);
+        maxInteraction = (Button) findViewById(R.id.maxButton);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        if (tabOn.equals("Study")) {
+            zoomFiltersButton.setVisibility(View.GONE);
+            tabLayout.selectTab(tabLayout.getTabAt(0));
+        } else {
+            tabOn = "Zoom";
+            zoomFiltersButton.setVisibility(View.VISIBLE);
+            tabLayout.selectTab(tabLayout.getTabAt(1));
+        }
 
         filtersButton.setOnClickListener(this);
+        zoomFiltersButton.setOnClickListener(this);
+        zoomInteractionsTabGroup.setOnClickListener(this);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println("selected" + tab.getId() + tab.getText());
+                if ((tab.getText()).equals("Study")) {
+                    tabOn = "Study";
+                    zoomFiltersButton.setVisibility(View.GONE);
+                    zoomInteractionsTabGroup.setVisibility(View.GONE);
+                } else {
+                    tabOn = "Zoom";
+                    zoomFiltersButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                System.out.println("unselected" + tab.getId());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                System.out.println("reselected" + tab.getId());
+            }
+        });
     }
 
     public void onClick(View v) {
+        System.out.println("Something pressed" + v.getId());
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
+            intent.putExtra("tab", tabOn);
             startActivity(intent);
+        } else if (v.getId() == R.id.zoomFilter) {
+            zoomFiltersButton.setVisibility(View.GONE);
+            zoomInteractionsTabGroup.setVisibility(View.VISIBLE);
+        } else if (v.getId() == R.id.zoomInteractionToggle) {
+            int checkedButtonId = zoomInteractionsTabGroup.getCheckedButtonId();
+            System.out.println("toggle" + checkedButtonId);
+            if (checkedButtonId != NO_ID) {
+                MaterialButton checkedButton = findViewById(checkedButtonId);
+                String buttonText = checkedButton.getText().toString();
+                Toast.makeText(this, buttonText, Toast.LENGTH_SHORT).show();
+                zoomFiltersButton.setVisibility(View.VISIBLE);
+                zoomInteractionsTabGroup.setVisibility(View.GONE);
+            }
         }
     }
 
