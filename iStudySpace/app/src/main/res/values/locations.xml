@@ -15,7 +15,7 @@
         <item>-88.22622205875562</item>
     </string-array>
     <string-array name="FunkLibrary">
-        <item>Funk Library</item>
+        <item>Funk ACES Library</item>
         <item>40.102880814557395</item>
         <item>-88.22425868195258</item>
     </string-array>
@@ -34,9 +34,39 @@
         <item>40.1084316354503</item>
         <item>-88.22968738268322</item>
     </string-array>
-    <string-array name="LoomisLaboratory">
-        <item>Loomis Laboratory</item>
-        <item>40.11101728663284</item>
-        <item>-88.22391634018292</item>
+    <string-array name="BrewLab">
+        <item>BrewLab Coffee</item>
+        <item>40.11091603097556</item>
+        <item>-88.23192904595666</item>
+    </string-array>
+    <string-array name="CafeBeneGreen">
+        <item>Cafe Bene on Green</item>
+        <item>40.11060830315163</item>
+        <item>-88.23099153587346</item>
+    </string-array>
+    <string-array name="CafeBeneGregory">
+        <item>Cafe Bene on Gregory</item>
+        <item>40.10625602261639</item>
+        <item>-88.22126449962234</item>
+    </string-array>
+    <string-array name="SiebelCS">
+        <item>Siebel Center for Computer Science</item>
+        <item>40.11397508525957</item>
+        <item>-88.22486228643163</item>
+    </string-array>
+    <string-array name="SiebelDesign">
+        <item>Siebel Center for Design</item>
+        <item>40.102709000983424</item>
+        <item>-88.23320438828466</item>
+    </string-array>
+    <string-array name="ECEB">
+        <item>Electrical and Computer Engineering Building</item>
+        <item>40.11507637522894</item>
+        <item>-88.22805523330901</item>
+    </string-array>
+    <string-array name="CIF">
+        <item>Campus Instructional Facility</item>
+        <item>40.11256525588706</item>
+        <item>-88.22838309511825</item>
     </string-array>
 </resources>
