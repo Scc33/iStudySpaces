@@ -1,8 +1,11 @@
 package com.example.istudyspace;
 
+import androidx.annotation.RequiresApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +16,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -76,61 +93,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        LatLng Grainger = new LatLng(40.11270, -88.22692);
-        googleMap.addMarker(new MarkerOptions()
-                .position(Grainger)
-                .title("Grainger Library"));
+        InputStream inputStream = getResources().openRawResource(R.raw.locations);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        Gson gson = new Gson();
 
-        LatLng[] places = {new LatLng(40.10954764345154, -88.22724722308422),
-                new LatLng(40.10485852066087, -88.22622205875562), new LatLng(40.102880814557395, -88.22425868195258),
-                new LatLng(40.10600026564582, -88.21903799312537), new LatLng(40.11682456862754, -88.22881269128017),
-                new LatLng(40.1084316354503, -88.22968738268322), new LatLng(40.11101728663284, -88.22391634018292)};
+        List<Location> locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
 
-        googleMap.addMarker(new MarkerOptions()
-                .position(places[0])
-                .title("Illini Union"));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(places[1])
-                .title("UGL"));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(places[2])
-                .title("Funk Library"));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(places[3])
-                .title("Caffe Paradiso"));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(places[4])
-                .title("Bearology"));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(places[5])
-                .title("Illini Union Bookstore"));
-
-        googleMap.addMarker(new MarkerOptions()
-                .position(places[6])
-                .title("Loomis Laboratory"));
-
-//        LatLng[] places = new LatLng[100];
-//        String filePath = "../../res/values/locations/locations.txt";
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader(filePath));
-//            String st = "";
-//            while ((st = br.readLine()) != null) {
-//                System.out.println(st);
-//            }
-//        } catch (Exception e) {
-//
-//        }
-
-//        for (int i = 0; i <)
+        for(Location location : locations) {
+            googleMap.addMarker(new MarkerOptions().position(location.getCoords()).title(location.getName()));
+        }
 
         LatLng cur_position = new LatLng(40.108014, -88.227265);
         MarkerOptions markerOptions = new MarkerOptions().position(cur_position).title("You")
@@ -140,6 +115,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur_position, 15));
         googleMap.addMarker(markerOptions);
 
+    }
+
+    public static <T> List<T> convertJSON(String s, Class<T[]> type) {
+        return Arrays.asList(new Gson().fromJson(s, type));
     }
 
     @Override
