@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //    FusedLocationProviderClient fusedLocationProviderClient;
 //    private static final int REQUEST_CODE = 101;
     private Button filtersButton;
-    private String tabOn = "Study";
     private Button zoomFiltersButton;
     private MaterialButtonToggleGroup zoomInteractionsTabGroup;
     private Button anyInteraction;
@@ -65,12 +64,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button maxInteraction;
     private TabLayout tabLayout;
 
+    private String tabOn = "Study";
+    private String noiseLevel = "any";
+    private Boolean groupWork = false;
+    private Boolean coffee = false;
+    private Boolean food = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             tabOn = extras.getString("tab");
+            noiseLevel = extras.getString("noiseLevel");;
+            groupWork = extras.getBoolean("groupWork");;
+            coffee = extras.getBoolean("coffee");
+            food = extras.getBoolean("food");
         }
         setContentView(R.layout.activity_main);
         // fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -135,6 +144,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
             intent.putExtra("tab", tabOn);
+            intent.putExtra("noiseLevel", noiseLevel);
+            intent.putExtra("groupWork", groupWork);
+            intent.putExtra("coffee", coffee);
+            intent.putExtra("food", food);
             startActivity(intent);
         } else if (v.getId() == R.id.zoomFilter) {
             zoomFiltersButton.setVisibility(View.GONE);

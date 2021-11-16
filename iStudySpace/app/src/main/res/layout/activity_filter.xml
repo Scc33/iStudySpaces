@@ -33,30 +33,32 @@
                 android:gravity="center"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                app:selectionRequired="true"
+                app:singleSelection="true"
                 android:layout_gravity="center">
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/anyButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_4"
                     style="?attr/materialButtonOutlinedStyle"
                     />
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/quietButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_5"
                     style="?attr/materialButtonOutlinedStyle"
                     />
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/ambientButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_6"
                     style="?attr/materialButtonOutlinedStyle"
                     />
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/loudButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filter_7"
@@ -71,17 +73,22 @@
                 android:gravity="center"
                 android:orientation="horizontal">
                 <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/groupCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/filter_1"/>
                 <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/coffeeCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="false"
                     android:text="@string/filter_2"/>
                 <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/foodCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="false"
                     android:text="@string/filter_3"/>
             </LinearLayout>
             <com.google.android.material.textview.MaterialTextView
