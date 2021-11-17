@@ -176,6 +176,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
+            intent.putExtra("tab", tabOn);
+            intent.putExtra("noiseLevel", noiseLevel);
+            intent.putExtra("groupWork", groupWork);
+            intent.putExtra("coffee", coffee);
+            intent.putExtra("food", food);
+            intent.putExtra("zoom", zoomInteraction);
+            startActivity(intent);
         } else if (v.getId() == R.id.zoomFilter) {
             zoomInteraction="any";
             zoomFiltersButton.setVisibility(View.GONE);
