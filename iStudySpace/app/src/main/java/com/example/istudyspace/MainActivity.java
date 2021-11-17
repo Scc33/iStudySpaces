@@ -6,10 +6,16 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -27,8 +33,10 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 
@@ -69,6 +77,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean groupWork = false;
     private Boolean coffee = false;
     private Boolean food = false;
+
+    private GoogleMap map;
+    private List<Location> locations;
+    private List<Marker> markers;
+
+    private final int DEFAULT_WIDTH = 69;
+    private final int DEFAULT_HEIGHT = 110;
+
+    private final int ZOOM_WIDTH = 94;
+    private final int ZOOM_HEIGHT = 135;
+    private final double ZOOM_PIN_OFFSET = 0.0002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +140,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     tabOn = "Study";
                     zoomFiltersButton.setVisibility(View.GONE);
                     zoomInteractionsTabGroup.setVisibility(View.GONE);
+                    updateToDefaultPins();
                 } else {
                     tabOn = "Zoom";
                     zoomFiltersButton.setVisibility(View.VISIBLE);
+                    updateToZoomPins();
                 }
             }
 
@@ -200,13 +221,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        map = googleMap; // Set global map
+        markers = new ArrayList<>();
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         Gson gson = new Gson();
 
-        List<Location> locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
+        BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
+        locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
         for(Location location : locations) {
-            googleMap.addMarker(new MarkerOptions().position(location.getCoords()).title(location.getName()));
+            markers.add(googleMap.addMarker(new MarkerOptions().icon(defaultPin).position(location.getCoords()).title(location.getName())));
         }
 
 //        LatLng[] places = new LatLng[100];
@@ -236,5 +261,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public static <T> List<T> convertJSON(String s, Class<T[]> type) {
         return Arrays.asList(new Gson().fromJson(s, type));
+    }
+
+    private void updateToDefaultPins() {
+        // Remove a couple example markers
+        for (Marker m: markers) {
+            if (m.getTitle().equals("Grainger Library")) {
+                m.setVisible(false);
+            } else if (m.getTitle().equals("UGL")) {
+                m.setVisible(false);
+            }
+        }
+        // Add 2 example zoom markers
+        Location location = locations.get(0); // Grainger
+        BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        markers.add(map.addMarker(new MarkerOptions().icon(defaultPin).position(location.getCoords()).title(location.getName())));
+        location = locations.get(2); // UGL
+        markers.add(map.addMarker(new MarkerOptions().icon(defaultPin).position(location.getCoords()).title(location.getName())));
+    }
+
+    private void updateToZoomPins() {
+        // Remove a couple example markers
+        for (Marker m: markers) {
+            if (m.getTitle().equals("Grainger Library")) {
+                m.setVisible(false);
+            } else if (m.getTitle().equals("UGL")) {
+                m.setVisible(false);
+            }
+        }
+        // Add 2 example zoom markers
+        Location location = locations.get(0); // Grainger
+        BitmapDescriptor zoomPin = getBitmapIcon(R.drawable.pin_6, ZOOM_WIDTH, ZOOM_HEIGHT);
+        markers.add(map.addMarker(new MarkerOptions().icon(zoomPin).position(new LatLng(location.getLat(), location.getLon() + ZOOM_PIN_OFFSET)).title(location.getName())));
+        location = locations.get(2); // UGL
+        zoomPin = getBitmapIcon(R.drawable.pin_2, ZOOM_WIDTH, ZOOM_HEIGHT);
+        markers.add(map.addMarker(new MarkerOptions().icon(zoomPin).position(new LatLng(location.getLat(), location.getLon() + ZOOM_PIN_OFFSET)).title(location.getName())));
+    }
+
+    private BitmapDescriptor getBitmapIcon(int resourceId, int width, int height) {
+        Bitmap b = BitmapFactory.decodeResource(getResources(), resourceId);
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        return BitmapDescriptorFactory.fromBitmap(smallMarker);
     }
 }
