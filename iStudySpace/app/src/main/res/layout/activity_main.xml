@@ -7,8 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!--    <include android:menu= "@menu/nav_menu"/>-->
-    <!--        <include layout="@layout/search_toolbar" />-->
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
@@ -103,22 +102,7 @@
             tools:layout_editor_absoluteY="113dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="1.0"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.0"-->
 
 
 
 </LinearLayout>
-
-    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--    xmlns:tools="http://schemas.android.com/tools"-->
-    <!--    android:id="@+id/maps"-->
-    <!--    android:name="com.google.android.gms.maps.SupportMapFragment"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    tools:context=".MainActivity"-->
-    <!--    />-->

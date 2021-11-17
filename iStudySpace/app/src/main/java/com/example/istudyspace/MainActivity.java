@@ -3,12 +3,21 @@ package com.example.istudyspace;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.graphics.Rect;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 import java.io.*;
@@ -21,19 +30,33 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import android.widget.EditText;
+import android.widget.SearchView;
 
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.FusedLocationProviderClient;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import com.google.gson.Gson;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.CameraUpdateFactory;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -52,9 +75,7 @@ import static android.view.View.NO_ID;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
-//    Location currentLocation;
-//    FusedLocationProviderClient fusedLocationProviderClient;
-//    private static final int REQUEST_CODE = 101;
+
     private Button filtersButton;
     private Button zoomFiltersButton;
     private MaterialButtonToggleGroup zoomInteractionsTabGroup;
@@ -69,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean groupWork = false;
     private Boolean coffee = false;
     private Boolean food = false;
+    private SearchView searchView;
+    private androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +105,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             food = extras.getBoolean("food");
         }
         setContentView(R.layout.activity_main);
-        // fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        // fetchLocation();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
 
         mapFragment.getMapAsync(this);
@@ -140,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void onClick(View v) {
-        System.out.println("Something pressed" + v.getId());
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
             intent.putExtra("tab", tabOn);
@@ -175,53 +196,41 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-//    private void fetchLocation() {
-//        if (ActivityCompat.checkSelfPermission(
-//                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-//            return;
-//        }
-//        Task<Location> task = fusedLocationProviderClient.getLastLocation();
-//        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-//            @Override
-//            public void onSuccess(Location location) {
-//                if (location != null) {
-//                    currentLocation = location;
-//                    Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-//                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
-//                    assert supportMapFragment != null;
-//                    supportMapFragment.getMapAsync(MainActivity.this);
-//                }
-//            }
-//        });
-//    }
+    @Override
+    /*
+    Closes soft keyboard when interact outside of searchView
+     */
+    public boolean dispatchTouchEvent(MotionEvent event){
+        if (event.getAction() == MotionEvent.ACTION_DOWN){
+            View v = getCurrentFocus();
+            if (v instanceof EditText){
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())){
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+
+        return super.dispatchTouchEvent(event);
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         Gson gson = new Gson();
 
         List<Location> locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
+
         for(Location location : locations) {
             googleMap.addMarker(new MarkerOptions().position(location.getCoords()).title(location.getName()));
         }
-
-//        LatLng[] places = new LatLng[100];
-//        String filePath = "../../res/values/locations/locations.txt";
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader(filePath));
-//            String st = "";
-//            while ((st = br.readLine()) != null) {
-//                System.out.println(st);
-//            }
-//        } catch (Exception e) {
-//
-//        }
-
-//        for (int i = 0; i <)
 
         LatLng cur_position = new LatLng(40.108014, -88.227265);
         MarkerOptions markerOptions = new MarkerOptions().position(cur_position).title("You")
@@ -233,6 +242,41 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Grainger, 18), 4000, null);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // inflate menu
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.nav_menu, menu);
+
+        // initialize menu item search bar
+        MenuItem searchViewItem = menu.findItem(R.id.search_bar);
+        searchView = (SearchView) searchViewItem.getActionView();
+
+        // searchAutoComplete = (androidx.appcompat.widget.SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+        }
+
+//        final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete =
+//                (androidx.appcompat.widget.SearchView.SearchAutoComplete) searchView.findViewById();
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    searchViewItem.collapseActionView();
+                    searchView.setQuery("", false);
+                }
+            }
+        });
+
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
     public static <T> List<T> convertJSON(String s, Class<T[]> type) {
         return Arrays.asList(new Gson().fromJson(s, type));
