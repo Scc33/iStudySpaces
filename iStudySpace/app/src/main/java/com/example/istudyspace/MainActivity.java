@@ -1,15 +1,10 @@
 package com.example.istudyspace;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.os.Build;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,7 +13,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -27,12 +27,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,36 +53,43 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 //import com.google.android.gms.common.ConnectionResult;
 //import com.google.android.gms.common.api.GoogleApiClient;
 //import com.google.android.gms.location.LocationListener;
 //import com.google.android.gms.location.LocationRequest;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.button.MaterialButtonToggleGroup;
-import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import java.util.ArrayList;
 
-import static android.view.View.NO_ID;
-
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements
+        OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerClickListener,
+        GoogleMap.OnMapClickListener {
+    private Context context;
     private GoogleMap map;
 
     private Button filtersButton;
@@ -87,6 +100,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button medInteraction;
     private Button maxInteraction;
     private TabLayout tabLayout;
+    private LinearLayout bottomSheetLayout;
+
+    private BottomSheetBehavior sheetBehavior;
+
+    private Map<Marker, Location> markerLocationMap;
 
     private String tabOn = "Study";
     private String noiseLevel = "any";
@@ -94,17 +112,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean coffee = false;
     private Boolean food = false;
     private String zoomInteraction = "any";
-    private SearchView searchView;
-    private androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete;
+    private List<Location> locations;
+    private List<String> all_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = getApplicationContext();
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             tabOn = extras.getString("tab");
-            noiseLevel = extras.getString("noiseLevel");;
-            groupWork = extras.getBoolean("groupWork");;
+            noiseLevel = extras.getString("noiseLevel");
+            groupWork = extras.getBoolean("groupWork");
             coffee = extras.getBoolean("coffee");
             food = extras.getBoolean("food");
             zoomInteraction = extras.getString("zoom");
@@ -115,6 +134,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));*/
         }
         setContentView(R.layout.activity_main);
+
+        // Get ActionBar
+        ActionBar actionBar = getSupportActionBar();
+        // Set below attributes to add logo in ActionBar.
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setTitle("iStudySpace");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
 
@@ -129,6 +154,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         maxInteraction = (Button) findViewById(R.id.maxButton);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+        bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
+        sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+        sheetBehavior.setPeekHeight(400);
+
+        markerLocationMap = new HashMap<Marker, Location>();
+
         if (tabOn.equals("Study")) {
             zoomFiltersButton.setVisibility(View.GONE);
             tabLayout.selectTab(tabLayout.getTabAt(0));
@@ -137,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             zoomFiltersButton.setVisibility(View.VISIBLE);
             tabLayout.selectTab(tabLayout.getTabAt(1));
         }
-
         filtersButton.setOnClickListener(this);
         zoomFiltersButton.setOnClickListener(this);
         zoomInteractionsTabGroup.setOnClickListener(this);
@@ -253,8 +283,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
+
+        map.setOnMarkerClickListener(this);
+        map.setOnMapClickListener(this);
 
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -278,7 +311,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if ((tabOn.equals("Zoom") && !zoomInteraction.equals("any")) && !zoomInteraction.equals(location.getZoom())) {
                 continue;
             }
-            googleMap.addMarker(new MarkerOptions().position(location.getCoords()).title(location.getName()));
+            Marker m = googleMap.addMarker(
+                    new MarkerOptions()
+                            .position(location.getCoords())
+                            .title(location.getName())
+            );
+            markerLocationMap.put(m, location);
         }
 
         LatLng cur_position = new LatLng(40.108014, -88.227265);
@@ -292,32 +330,91 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Grainger, 18), 4000, null);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        Location l = markerLocationMap.get(marker);
+        // Set the image to the location's image
+        ImageView locationImage = (ImageView) findViewById(R.id.location_image);
+        int id = getResources().getIdentifier("com.example.istudyspace:drawable/" + l.getImageFile(), null, null);
+        locationImage.setImageResource(id);
+        // Set the location name to the location's name
+        TextView locationName = findViewById(R.id.location_name);
+        locationName.setText(l.getName());
+
+        bottomSheetLayout.setVisibility(View.VISIBLE);
+        return false;
+    }
+
+    @Override
+    public void onMapClick(LatLng l) {
+        bottomSheetLayout.setVisibility(View.INVISIBLE);
+        ((ImageView) findViewById(R.id.location_image)).setImageResource(0);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // inflate menu
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.nav_menu, menu);
+        // Inflate the search menu action bar.
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.nav_menu, menu);
+        // Get the search menu.
+        MenuItem searchMenu = menu.findItem(R.id.app_bar_menu_search);
+        // Get SearchView object.
+        androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) searchMenu.getActionView();
+        // Get SearchView autocomplete object.
+        final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = (androidx.appcompat.widget.SearchView.SearchAutoComplete)searchView.findViewById(androidx.appcompat.R.id.search_src_text);
 
-        // initialize menu item search bar
-        MenuItem searchViewItem = menu.findItem(R.id.search_bar);
-        searchView = (SearchView) searchViewItem.getActionView();
+        searchAutoComplete.setBackgroundColor(Color.parseColor("#FFDD3403"));
+        searchAutoComplete.setTextColor(Color.BLACK);
+        searchAutoComplete.setDropDownBackgroundResource(android.R.color.darker_gray);
 
-        // searchAutoComplete = (androidx.appcompat.widget.SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        if (!searchView.isIconified()) {
-            searchView.setIconified(true);
+        // Create a new ArrayAdapter and add data to search auto complete object.
+        InputStream inputStream = getResources().openRawResource(R.raw.locations);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        Gson gson = new Gson();
+
+        List<Location> locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()),
+                Location[].class);
+
+        String dataArr[] = new String[locations.size()];
+        all_location = new ArrayList<String>();
+        all_location.toArray(dataArr);
+        for (Location location : locations){
+            all_location.add(location.getName());
         }
+        ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, all_location);
+        searchAutoComplete.setAdapter(newsAdapter);
 
-//        final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete =
-//                (androidx.appcompat.widget.SearchView.SearchAutoComplete) searchView.findViewById();
+        // Listen to search view item on click event.
 
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+        searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    searchViewItem.collapseActionView();
-                    searchView.setQuery("", false);
+            public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
+                String queryString=(String)adapterView.getItemAtPosition(itemIndex);
+                searchAutoComplete.setText("" + queryString);
+                closeKeyboard();
+
+                //TODO: replace the Toast output with the action "clicking" the pin on the map
+                Toast.makeText(MainActivity.this, "You clicked " + queryString, Toast.LENGTH_LONG).show();
+
+            }
+        });
+        // Below event is triggered when submit search query.
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                closeKeyboard();
+                if (!all_location.contains(query)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    alertDialog.setMessage("Location is Invalid! ");
+                    alertDialog.show();
                 }
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
 
@@ -326,8 +423,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 
     public static <T> List<T> convertJSON(String s, Class<T[]> type) {
         return Arrays.asList(new Gson().fromJson(s, type));
     }
+
 }
