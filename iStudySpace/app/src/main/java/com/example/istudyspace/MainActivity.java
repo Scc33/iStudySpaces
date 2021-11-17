@@ -45,6 +45,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import com.google.android.gms.maps.model.Marker;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,11 +72,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import java.util.ArrayList;
 
 import static android.view.View.NO_ID;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
-
+    private GoogleMap map;
 
     private Button filtersButton;
     private Button zoomFiltersButton;
@@ -103,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             groupWork = extras.getBoolean("groupWork");;
             coffee = extras.getBoolean("coffee");
             food = extras.getBoolean("food");
+            /*map.addMarker(new MarkerOptions()
+                    .position(new LatLng( 40.10954764345154,-88.227268))
+                    .title("This is my title")
+                    .snippet("and snippet")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));*/
         }
         setContentView(R.layout.activity_main);
 
@@ -221,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
 
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -229,6 +238,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         List<Location> locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
 
         for(Location location : locations) {
+            if (coffee && !location.getCoffee()) {
+                continue;
+            }
+            if (groupWork && !location.getGroupWork()) {
+                continue;
+            }
+            if (food && !location.getFood()) {
+                continue;
+            }
+            if ((noiseLevel.equals("quiet") || noiseLevel.equals("ambient") || noiseLevel.equals("loud"))&& !noiseLevel.equals(location.getNoiseLevel())) {
+                continue;
+            }
             googleMap.addMarker(new MarkerOptions().position(location.getCoords()).title(location.getName()));
         }
 
