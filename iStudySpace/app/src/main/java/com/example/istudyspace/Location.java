@@ -11,6 +11,7 @@ public class Location {
     private boolean food;
     private String noiseLevel;
     private String zoom;
+    private String imageFile;
 
     public String getName() {
         return name;
@@ -59,4 +60,8 @@ public class Location {
     public void setZoom() { this.zoom = zoom; }
 
     public String getZoom() { return zoom; }
+
+    public void setImageFile() { this.imageFile = imageFile; }
+
+    public String getImageFile() {return imageFile; }
 }

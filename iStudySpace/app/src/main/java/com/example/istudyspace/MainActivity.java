@@ -16,6 +16,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -23,6 +39,23 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.gson.Gson;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,13 +76,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 //import com.google.android.gms.common.ConnectionResult;
 //import com.google.android.gms.common.api.GoogleApiClient;
 //import com.google.android.gms.location.LocationListener;
 //import com.google.android.gms.location.LocationRequest;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements
+        OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerClickListener,
+        GoogleMap.OnMapClickListener {
+    private Context context;
     private GoogleMap map;
 
     private Button filtersButton;
@@ -60,6 +100,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button medInteraction;
     private Button maxInteraction;
     private TabLayout tabLayout;
+    private LinearLayout bottomSheetLayout;
+
+    private BottomSheetBehavior sheetBehavior;
+
+    private Map<Marker, Location> markerLocationMap;
 
     private String tabOn = "Study";
     private String noiseLevel = "any";
@@ -72,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = getApplicationContext();
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -108,6 +154,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         maxInteraction = (Button) findViewById(R.id.maxButton);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+        bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
+        sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+        sheetBehavior.setPeekHeight(400);
+
+        markerLocationMap = new HashMap<Marker, Location>();
+
         if (tabOn.equals("Study")) {
             zoomFiltersButton.setVisibility(View.GONE);
             tabLayout.selectTab(tabLayout.getTabAt(0));
@@ -116,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             zoomFiltersButton.setVisibility(View.VISIBLE);
             tabLayout.selectTab(tabLayout.getTabAt(1));
         }
-
         filtersButton.setOnClickListener(this);
         zoomFiltersButton.setOnClickListener(this);
         zoomInteractionsTabGroup.setOnClickListener(this);
@@ -232,8 +283,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
+
+        map.setOnMarkerClickListener(this);
+        map.setOnMapClickListener(this);
 
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -257,7 +311,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if ((tabOn.equals("Zoom") && !zoomInteraction.equals("any")) && !zoomInteraction.equals(location.getZoom())) {
                 continue;
             }
-            googleMap.addMarker(new MarkerOptions().position(location.getCoords()).title(location.getName()));
+            Marker m = googleMap.addMarker(
+                    new MarkerOptions()
+                            .position(location.getCoords())
+                            .title(location.getName())
+            );
+            markerLocationMap.put(m, location);
         }
 
         LatLng cur_position = new LatLng(40.108014, -88.227265);
@@ -272,6 +331,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        Location l = markerLocationMap.get(marker);
+        // Set the image to the location's image
+        ImageView locationImage = (ImageView) findViewById(R.id.location_image);
+        int id = getResources().getIdentifier("com.example.istudyspace:drawable/" + l.getImageFile(), null, null);
+        locationImage.setImageResource(id);
+        // Set the location name to the location's name
+        TextView locationName = findViewById(R.id.location_name);
+        locationName.setText(l.getName());
+
+        bottomSheetLayout.setVisibility(View.VISIBLE);
+        return false;
+    }
+
+    @Override
+    public void onMapClick(LatLng l) {
+        bottomSheetLayout.setVisibility(View.INVISIBLE);
+        ((ImageView) findViewById(R.id.location_image)).setImageResource(0);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
