@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean groupWork = false;
     private Boolean coffee = false;
     private Boolean food = false;
+    private String zoomInteraction = "any";
     private SearchView searchView;
     private androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete;
 
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             groupWork = extras.getBoolean("groupWork");;
             coffee = extras.getBoolean("coffee");
             food = extras.getBoolean("food");
+            zoomInteraction = extras.getString("zoom");
             /*map.addMarker(new MarkerOptions()
                     .position(new LatLng( 40.10954764345154,-88.227268))
                     .title("This is my title")
@@ -149,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 System.out.println("selected" + tab.getId() + tab.getText());
                 if ((tab.getText()).equals("Study")) {
                     tabOn = "Study";
+                    zoomInteraction="any";
+                    updateZoom();
                     zoomFiltersButton.setVisibility(View.GONE);
                     zoomInteractionsTabGroup.setVisibility(View.GONE);
                 } else {
@@ -172,36 +176,50 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onClick(View v) {
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
-            intent.putExtra("tab", tabOn);
-            intent.putExtra("noiseLevel", noiseLevel);
-            intent.putExtra("groupWork", groupWork);
-            intent.putExtra("coffee", coffee);
-            intent.putExtra("food", food);
-            startActivity(intent);
         } else if (v.getId() == R.id.zoomFilter) {
+            zoomInteraction="any";
             zoomFiltersButton.setVisibility(View.GONE);
             zoomInteractionsTabGroup.setVisibility(View.VISIBLE);
         } else if (v.getId() == R.id.anyButton) {
+            zoomInteraction="any";
+            updateZoom();
             String buttonText = anyInteraction.getText().toString();
             Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
             zoomFiltersButton.setVisibility(View.VISIBLE);
             zoomInteractionsTabGroup.setVisibility(View.GONE);
         } else if (v.getId() == R.id.lowButton) {
+            zoomInteraction="minimal";
+            updateZoom();
             String buttonText = anyInteraction.getText().toString();
             Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
             zoomFiltersButton.setVisibility(View.VISIBLE);
             zoomInteractionsTabGroup.setVisibility(View.GONE);
         } else if (v.getId() == R.id.medButton) {
+            zoomInteraction="moderate";
+            updateZoom();
             String buttonText = anyInteraction.getText().toString();
             Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
             zoomFiltersButton.setVisibility(View.VISIBLE);
             zoomInteractionsTabGroup.setVisibility(View.GONE);
         } else if (v.getId() == R.id.maxButton) {
+            zoomInteraction="maximal";
+            updateZoom();
             String buttonText = anyInteraction.getText().toString();
             Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
             zoomFiltersButton.setVisibility(View.VISIBLE);
             zoomInteractionsTabGroup.setVisibility(View.GONE);
         }
+    }
+
+    private void updateZoom() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("tab", tabOn);
+        intent.putExtra("noiseLevel", noiseLevel);
+        intent.putExtra("groupWork", groupWork);
+        intent.putExtra("coffee", coffee);
+        intent.putExtra("food", food);
+        intent.putExtra("zoom", zoomInteraction);
+        startActivity(intent);
     }
 
     @Override
@@ -248,6 +266,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 continue;
             }
             if ((noiseLevel.equals("quiet") || noiseLevel.equals("ambient") || noiseLevel.equals("loud"))&& !noiseLevel.equals(location.getNoiseLevel())) {
+                continue;
+            }
+            if ((tabOn.equals("Zoom") && !zoomInteraction.equals("any")) && !zoomInteraction.equals(location.getZoom())) {
                 continue;
             }
             googleMap.addMarker(new MarkerOptions().position(location.getCoords()).title(location.getName()));

@@ -6,7 +6,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "moderate"
   },
   {
     "name": "UGL",
@@ -15,7 +16,8 @@
     "coffee": false,
     "groupWork": true,
     "food": false,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "minimal"
   },
   {
     "name": "Funk ACES Library",
@@ -24,7 +26,8 @@
     "coffee": false,
     "groupWork": false,
     "food": false,
-    "noiseLevel": "quiet"
+    "noiseLevel": "quiet",
+    "zoom": "moderate"
   },
   {
     "name": "Caffe Paradiso",
@@ -33,7 +36,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "minimal"
   },
   {
     "name": "Grainger Library",
@@ -42,7 +46,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "quiet"
+    "noiseLevel": "quiet",
+    "zoom": "moderate"
   },
   {
     "name": "Illini Union Bookstore",
@@ -51,7 +56,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "minimal"
   },
   {
     "name": "BrewLab Coffee",
@@ -60,7 +66,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "moderate"
   },
   {
     "name": "Cafe Bene on Green",
@@ -69,7 +76,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "moderate"
   },
   {
     "name": "Cafe Bene on Gregory",
@@ -78,7 +86,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "moderate"
   },
   {
     "name": "Siebel Center for Computer Science",
@@ -87,7 +96,8 @@
     "coffee": true,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "ambient"
+    "noiseLevel": "ambient",
+    "zoom": "maximal"
   },
   {
     "name": "Siebel Center for Design",
@@ -96,7 +106,8 @@
     "coffee": false,
     "groupWork": true,
     "food": false,
-    "noiseLevel": "quiet"
+    "noiseLevel": "quiet",
+    "zoom": "moderate"
   },
   {
     "name": "Electrical and Computer Engineering Building",
@@ -105,7 +116,8 @@
     "coffee": trie,
     "groupWork": true,
     "food": true,
-    "noiseLevel": "loud"
+    "noiseLevel": "loud",
+    "zoom": "minimal"
   },
   {
     "name": "Campus Instructional Facility",
@@ -114,6 +126,7 @@
     "coffee": false,
     "groupWork": true,
     "food": false,
-    "noiseLevel": "ambient"
+    "noiseLevel": "ambient",
+    "zoom": "moderate"
   }
 ]

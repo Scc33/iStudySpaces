@@ -10,6 +10,7 @@ public class Location {
     private boolean groupWork;
     private boolean food;
     private String noiseLevel;
+    private String zoom;
 
     public String getName() {
         return name;
@@ -54,4 +55,8 @@ public class Location {
     public void setNoiseLevel() { this.noiseLevel = noiseLevel; }
 
     public String getNoiseLevel() { return noiseLevel; }
+
+    public void setZoom() { this.zoom = zoom; }
+
+    public String getZoom() { return zoom; }
 }
