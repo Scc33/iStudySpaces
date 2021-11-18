@@ -1,10 +1,13 @@
 package com.example.istudyspace;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.icu.text.IDNA;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -53,6 +56,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import com.example.istudyspace.Fragments.InfoCardFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.slider.LabelFormatter;
@@ -83,6 +87,7 @@ import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 //import com.google.android.gms.common.ConnectionResult;
@@ -212,8 +217,7 @@ public class MainActivity extends AppCompatActivity implements
         bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
         sheetBehavior.setPeekHeight(400);
-
-        markerLocationMap = new HashMap<Marker, Location>();
+        sheetBehavior.setHideable(true);
 
         if (tabOn.equals("Study")) {
             tabOn = "Study";
@@ -298,15 +302,9 @@ public class MainActivity extends AppCompatActivity implements
         return super.dispatchTouchEvent(event);
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        map = googleMap;
-
-        map.setOnMarkerClickListener(this);
-        map.setOnMapClickListener(this);
-
+    //Load map pins into map from JSON
+    public void updateMapPins(@NonNull GoogleMap googleMap) {
+        markerLocationMap = new HashMap<Marker, Location>();
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         Gson gson = new Gson();
@@ -336,37 +334,50 @@ public class MainActivity extends AppCompatActivity implements
             );
             markerLocationMap.put(m, location);
         }
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+
+        map.setOnMarkerClickListener(this);
+        map.setOnMapClickListener(this);
+
+        //Load all map pins into map from JSON
+        updateMapPins(googleMap);
+
+        //Set position for current location in middle of campus
         LatLng cur_position = new LatLng(40.108014, -88.227265);
         MarkerOptions markerOptions = new MarkerOptions().position(cur_position).title("You")
                 .draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(cur_position));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur_position, 15));
         googleMap.addMarker(markerOptions);
 
-        // googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Grainger, 18), 4000, null);
+        //Center camera on current location
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(cur_position));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur_position, 15));
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.bottom_sheet, fragment);
+        fragmentTransaction.commit();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onMarkerClick(final Marker marker) {
         Location l = markerLocationMap.get(marker);
-        // Set the image to the location's image
-        ImageView locationImage = (ImageView) findViewById(R.id.location_image);
-        int id = getResources().getIdentifier("com.example.istudyspace:drawable/" + l.getImageFile(), null, null);
-        locationImage.setImageResource(id);
-        // Set the location name to the location's name
-        TextView locationName = findViewById(R.id.location_name);
-        locationName.setText(l.getName());
-
-        bottomSheetLayout.setVisibility(View.VISIBLE);
+        loadFragment(new InfoCardFragment(l));
+        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         return false;
     }
 
     @Override
     public void onMapClick(LatLng l) {
-        bottomSheetLayout.setVisibility(View.INVISIBLE);
+        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+//        bottomSheetLayout.setVisibility(View.INVISIBLE);
         ((ImageView) findViewById(R.id.location_image)).setImageResource(0);
     }
 

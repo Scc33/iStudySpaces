@@ -90,14 +90,14 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
-        android:visibility="invisible"
         android:clickable="true"
         android:focusable="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-        <include layout="@layout/info_card"/>
-    </LinearLayout>
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+<!--        <include layout="@layout/info_card"/>-->
+<!--    </LinearLayout>-->
 
 
 

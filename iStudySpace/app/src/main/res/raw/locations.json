@@ -19,7 +19,40 @@
     "food": false,
     "noiseLevel": "loud",
     "zoom": "minimal",
-    "imageFile": "ugl"
+    "imageFile": "ugl",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Funk ACES Library",
@@ -30,7 +63,40 @@
     "food": false,
     "noiseLevel": "quiet",
     "zoom": "moderate",
-    "imageFile": "aces"
+    "imageFile": "aces",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Caffe Paradiso",
@@ -41,7 +107,40 @@
     "food": true,
     "noiseLevel": "loud",
     "zoom": "minimal",
-    "imageFile": "caffeparadiso"
+    "imageFile": "caffeparadiso",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Grainger Library",
@@ -52,7 +151,40 @@
     "food": true,
     "noiseLevel": "quiet",
     "zoom": "moderate",
-    "imageFile": "grainger"
+    "imageFile": "grainger",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Illini Union Bookstore",
@@ -63,7 +195,40 @@
     "food": true,
     "noiseLevel": "loud",
     "zoom": "minimal",
-    "imageFile": "bookstore"
+    "imageFile": "bookstore",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "BrewLab Coffee",
@@ -74,7 +239,40 @@
     "food": true,
     "noiseLevel": "loud",
     "zoom": "moderate",
-    "imageFile": "brewlab"
+    "imageFile": "brewlab",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Cafe Bene on Green",
@@ -85,7 +283,40 @@
     "food": true,
     "noiseLevel": "loud",
     "zoom": "moderate",
-    "imageFile": "caffebene"
+    "imageFile": "caffebene",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Cafe Bene on Gregory",
@@ -96,7 +327,40 @@
     "food": true,
     "noiseLevel": "loud",
     "zoom": "moderate",
-    "imageFile": "caffebenegregory"
+    "imageFile": "caffebenegregory",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Siebel Center for Computer Science",
@@ -107,7 +371,40 @@
     "food": true,
     "noiseLevel": "ambient",
     "zoom": "maximal",
-    "imageFile": "siebel"
+    "imageFile": "siebel",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Siebel Center for Design",
@@ -118,7 +415,40 @@
     "food": false,
     "noiseLevel": "quiet",
     "zoom": "moderate",
-    "imageFile": "scd"
+    "imageFile": "scd",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Electrical and Computer Engineering Building",
@@ -129,7 +459,40 @@
     "food": true,
     "noiseLevel": "loud",
     "zoom": "minimal",
-    "imageFile": "eceb"
+    "imageFile": "eceb",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Campus Instructional Facility",
@@ -140,6 +503,39 @@
     "food": false,
     "noiseLevel": "ambient",
     "zoom": "moderate",
-    "imageFile": "cif"
+    "imageFile": "cif",
+    "hours": {
+      "su" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "m" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "t" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "w" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "th" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "f" : {
+        "open": "8:00",
+        "close" : "3:00"
+      },
+      "sa" : {
+        "open": "8:00",
+        "close" : "3:00"
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   }
 ]
