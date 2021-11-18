@@ -528,37 +528,45 @@ public class MainActivity extends AppCompatActivity implements
     }
     private void updateToDefaultPins() {
         // Remove a couple example markers
+        BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         for (Marker m: markerLocationMap.keySet()) {
             if (m.getTitle().equals("Grainger Library")) {
-                m.setVisible(false);
+                m.setIcon(defaultPin);
             } else if (m.getTitle().equals("Undergraduate Library")) {
-                m.setVisible(false);
+                m.setIcon(defaultPin);
             }
         }
-        // Add 2 example zoom markers
+        /*
+         Add 2 example zoom markers
         Location location = locations.get(4); // Grainger
         BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         markerLocationMap.put(map.addMarker(new MarkerOptions().icon(defaultPin).position(location.getCoords()).title(location.getName())), location);
         location = locations.get(1); // UGL
         markerLocationMap.put(map.addMarker(new MarkerOptions().icon(defaultPin).position(location.getCoords()).title(location.getName())), location);
+        */
     }
 
     private void updateToZoomPins() {
         // Remove a couple example markers
+        BitmapDescriptor zoomPin;
         for (Marker m: markerLocationMap.keySet()) {
             if (m.getTitle().equals("Grainger Library")) {
-                m.setVisible(false);
+                zoomPin = getBitmapIcon(R.drawable.pin_6, ZOOM_WIDTH, ZOOM_HEIGHT);
+                m.setIcon(zoomPin);
             } else if (m.getTitle().equals("Undergraduate Library")) {
-                m.setVisible(false);
+                zoomPin = getBitmapIcon(R.drawable.pin_2, ZOOM_WIDTH, ZOOM_HEIGHT);
+                m.setIcon(zoomPin);
             }
         }
-        // Add 2 example zoom markers
+        /*
+         Add 2 example zoom markers
         Location location = locations.get(4); // Grainger
         BitmapDescriptor zoomPin = getBitmapIcon(R.drawable.pin_6, ZOOM_WIDTH, ZOOM_HEIGHT);
         markerLocationMap.put(map.addMarker(new MarkerOptions().icon(zoomPin).position(new LatLng(location.getLat(), location.getLon() + ZOOM_PIN_OFFSET)).title(location.getName())), location);
         location = locations.get(1); // UGL
         zoomPin = getBitmapIcon(R.drawable.pin_2, ZOOM_WIDTH, ZOOM_HEIGHT);
         markerLocationMap.put(map.addMarker(new MarkerOptions().icon(zoomPin).position(new LatLng(location.getLat(), location.getLon() + ZOOM_PIN_OFFSET)).title(location.getName())), location);
+        */
     }
 
     private BitmapDescriptor getBitmapIcon(int resourceId, int width, int height) {
