@@ -72,6 +72,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="3"
                         android:valueFrom="0.0"
+                        android:tickMark="@drawable/tickmark"
                         android:valueTo="3.0"
                         android:stepSize="1.0" />
                 </LinearLayout>

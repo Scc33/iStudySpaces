@@ -57,6 +57,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
+import com.google.android.material.slider.Slider;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -137,6 +138,36 @@ public class MainActivity extends AppCompatActivity implements
         sliderLabel = (TextView) findViewById(R.id.sliderLabel);
 
         slider = findViewById(R.id.slider);
+        slider.setTickVisible(true);
+        setSlider();
+        slider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                if (tabOn.equals("Study")) {
+                    if (value == 0) {
+                        noiseLevel = "any";
+                    } else if (value == 1.0) {
+                        noiseLevel = "quiet";
+                    } else if (value == 2.0) {
+                        noiseLevel = "ambient";
+                    } else if (value == 3.0) {
+                        noiseLevel = "loud";
+                    }
+                } else {
+                    if (value == 0) {
+                        zoomInteraction = "any";
+                    } else if (value == 1.0) {
+                        zoomInteraction = "minimal";
+                    } else if (value == 2.0) {
+                        zoomInteraction = "moderate";
+                    } else if (value == 3.0) {
+                        zoomInteraction = "maximal";
+                    }
+                }
+                update();
+            }
+        });
+
         slider.setLabelFormatter(new LabelFormatter() {
             @NonNull
             @Override
@@ -184,10 +215,13 @@ public class MainActivity extends AppCompatActivity implements
         markerLocationMap = new HashMap<Marker, Location>();
 
         if (tabOn.equals("Study")) {
+            tabOn = "Study";
             tabLayout.selectTab(tabLayout.getTabAt(0));
+            sliderLabel.setText("Noise Level");
         } else {
             tabOn = "Zoom";
             tabLayout.selectTab(tabLayout.getTabAt(1));
+            sliderLabel.setText("Interaction Level");
         }
         filtersButton.setOnClickListener(this);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -195,14 +229,14 @@ public class MainActivity extends AppCompatActivity implements
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getText()).equals("Study")) {
                     tabOn = "Study";
-                    zoomInteraction="any";
-                    sliderLabel.setText("Noise Level");
-                    updateZoom();
-                } else {
-                    sliderLabel.setText("Interaction Level");
                     noiseLevel="any";
+                    zoomInteraction="any";
+                } else {
                     tabOn = "Zoom";
+                    noiseLevel="any";
+                    zoomInteraction="any";
                 }
+                update();
             }
 
             @Override
@@ -230,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void updateZoom() {
+    private void update() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("tab", tabOn);
         intent.putExtra("noiseLevel", noiseLevel);
@@ -287,7 +321,10 @@ public class MainActivity extends AppCompatActivity implements
             if (food && !location.getFood()) {
                 continue;
             }
-            if ((noiseLevel.equals("quiet") || noiseLevel.equals("ambient") || noiseLevel.equals("loud"))&& !noiseLevel.equals(location.getNoiseLevel())) {
+            if (tabOn.equals("Study") && !noiseLevel.equals("any") && !noiseLevel.equals(location.getNoiseLevel())) {
+                continue;
+            }
+            if (tabOn.equals("Zoom") && !zoomInteraction.equals("any") && !zoomInteraction.equals(location.getZoom())) {
                 continue;
             }
             Marker m = googleMap.addMarker(
@@ -415,4 +452,23 @@ public class MainActivity extends AppCompatActivity implements
         return Arrays.asList(new Gson().fromJson(s, type));
     }
 
+    private void setSlider() {
+        if (tabOn.equals("Study")) {
+             if (noiseLevel.equals("quiet")) {
+                slider.setValues(1.0f);
+            } else if (noiseLevel.equals("ambient")) {
+                slider.setValues(2.0f);
+            } else if (noiseLevel.equals("loud")) {
+                slider.setValues(3.0f);
+            }
+        } else {
+            if (zoomInteraction.equals("minimal")) {
+                slider.setValues(1.0f);
+            } else if (zoomInteraction.equals("moderate")) {
+                slider.setValues(2.0f);
+            } else if (zoomInteraction.equals("maximal")) {
+                slider.setValues(3.0f);
+            }
+        }
+    }
 }
