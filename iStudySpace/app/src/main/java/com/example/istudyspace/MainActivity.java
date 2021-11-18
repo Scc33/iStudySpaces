@@ -352,6 +352,7 @@ public class MainActivity extends AppCompatActivity implements
         ((ImageView) findViewById(R.id.location_image)).setImageResource(0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -396,7 +397,8 @@ public class MainActivity extends AppCompatActivity implements
                 closeKeyboard();
 
                 //TODO: replace the Toast output with the action "clicking" the pin on the map
-                Toast.makeText(MainActivity.this, "You clicked " + queryString, Toast.LENGTH_LONG).show();
+                focus_pin(queryString);
+                // Toast.makeText(MainActivity.this, "You clicked " + queryString, Toast.LENGTH_LONG).show();
 
             }
         });
@@ -407,8 +409,12 @@ public class MainActivity extends AppCompatActivity implements
                 closeKeyboard();
                 if (!all_location.contains(query)) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setMessage("Location is Invalid! ");
+                    alertDialog.setMessage("Location is Invalid!");
                     alertDialog.show();
+                }
+                else{
+                    focus_pin(query);
+
                 }
                 return false;
             }
@@ -431,6 +437,25 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void focus_pin(String loc){
+        for (Map.Entry<Marker, Location> entry : markerLocationMap.entrySet()) {
+            Location location = entry.getValue();
+
+            if (location.getName().equals(loc)){
+                Marker marker = entry.getKey();
+                Marker m = map.addMarker(
+                        new MarkerOptions()
+                                .position(location.getCoords())
+                                .title(location.getName()));
+
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(m.getPosition(), 18));
+                marker.showInfoWindow();
+                onMarkerClick(marker);
+                break;
+            }
+        }
+    }
 
     public static <T> List<T> convertJSON(String s, Class<T[]> type) {
         return Arrays.asList(new Gson().fromJson(s, type));
