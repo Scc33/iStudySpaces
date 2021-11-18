@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements
     private String zoomInteraction = "any";
     private List<Location> locations;
     private List<String> all_location;
+    private MenuItem searchMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,6 +295,7 @@ public class MainActivity extends AppCompatActivity implements
                     v.clearFocus();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    searchMenu.collapseActionView();
                 }
             }
         }
@@ -373,6 +375,7 @@ public class MainActivity extends AppCompatActivity implements
         ((ImageView) findViewById(R.id.location_image)).setImageResource(0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -380,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.nav_menu, menu);
         // Get the search menu.
-        MenuItem searchMenu = menu.findItem(R.id.app_bar_menu_search);
+        searchMenu = menu.findItem(R.id.app_bar_menu_search);
         // Get SearchView object.
         androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) searchMenu.getActionView();
         // Get SearchView autocomplete object.
@@ -410,19 +413,22 @@ public class MainActivity extends AppCompatActivity implements
         // Listen to search view item on click event.
 
         searchAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id) {
                 String queryString=(String)adapterView.getItemAtPosition(itemIndex);
                 searchAutoComplete.setText("" + queryString);
                 closeKeyboard();
 
+                focus_pin(queryString);
                 //TODO: replace the Toast output with the action "clicking" the pin on the map
-                Toast.makeText(MainActivity.this, "You clicked " + queryString, Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, "You clicked " + queryString, Toast.LENGTH_LONG).show();
 
             }
         });
         // Below event is triggered when submit search query.
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onQueryTextSubmit(String query) {
                 closeKeyboard();
@@ -430,6 +436,9 @@ public class MainActivity extends AppCompatActivity implements
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setMessage("Location is Invalid! ");
                     alertDialog.show();
+                }
+                else{
+                    focus_pin(query);
                 }
                 return false;
             }
@@ -442,6 +451,26 @@ public class MainActivity extends AppCompatActivity implements
 
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void focus_pin(String loc){
+        for (Map.Entry<Marker, Location> entry : markerLocationMap.entrySet()) {
+            Location location = entry.getValue();
+
+            if (location.getName().equals(loc)){
+                Marker marker = entry.getKey();
+                Marker m = map.addMarker(
+                        new MarkerOptions()
+                                .position(location.getCoords())
+                                .title(location.getName()));
+
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(m.getPosition(), 18));
+                marker.showInfoWindow();
+                onMarkerClick(marker);
+                break;
+            }
+        }
     }
 
     private void closeKeyboard() {
@@ -459,7 +488,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void setSlider() {
         if (tabOn.equals("Study")) {
-             if (noiseLevel.equals("quiet")) {
+            if (noiseLevel.equals("quiet")) {
                 slider.setValues(1.0f);
             } else if (noiseLevel.equals("ambient")) {
                 slider.setValues(2.0f);
