@@ -3,16 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/drawable/ic_search.xml" value="0.125" />
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/drawable/toast_background.xml" value="0.12395833333333334" />
         <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/activity_filter.xml" value="0.25" />
         <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/activity_main.xml" value="0.165" />
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/info_card.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/menu.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/search_toolbar.xml" value="0.1" />
-        <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/toast_background.xml" value="0.1078125" />
         <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/layout/toolbar.xml" value="0.1" />
         <entry key="..\:/Users/souls/AndroidStudioProjects/iStudySpaces/iStudySpace/app/src/main/res/menu/nav_menu.xml" value="0.335" />
+        <entry key="app/src/main/res/drawable/layout_bg.xml" value="0.278125" />
+        <entry key="app/src/main/res/drawable/tickmark.xml" value="0.275" />
+        <entry key="app/src/main/res/layout/activity_filter.xml" value="0.20652173913043478" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.20652173913043478" />
       </map>
     </option>
   </component>

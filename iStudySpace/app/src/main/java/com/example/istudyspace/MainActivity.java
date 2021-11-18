@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -54,6 +55,9 @@ import java.util.stream.Collectors;
 
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.slider.LabelFormatter;
+import com.google.android.material.slider.RangeSlider;
+import com.google.android.material.slider.Slider;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,18 +97,15 @@ public class MainActivity extends AppCompatActivity implements
     private GoogleMap map;
 
     private Button filtersButton;
-    private Button zoomFiltersButton;
-    private MaterialButtonToggleGroup zoomInteractionsTabGroup;
-    private Button anyInteraction;
-    private Button minInteraction;
-    private Button medInteraction;
-    private Button maxInteraction;
     private TabLayout tabLayout;
     private LinearLayout bottomSheetLayout;
 
     private BottomSheetBehavior sheetBehavior;
 
     private Map<Marker, Location> markerLocationMap;
+
+    private RangeSlider slider;
+    private TextView sliderLabel;
 
     private String tabOn = "Study";
     private String noiseLevel = "any";
@@ -134,6 +135,65 @@ public class MainActivity extends AppCompatActivity implements
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));*/
         }
         setContentView(R.layout.activity_main);
+        sliderLabel = (TextView) findViewById(R.id.sliderLabel);
+
+        slider = findViewById(R.id.slider);
+        slider.setTickVisible(true);
+        setSlider();
+        slider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                if (tabOn.equals("Study")) {
+                    if (value == 0) {
+                        noiseLevel = "any";
+                    } else if (value == 1.0) {
+                        noiseLevel = "quiet";
+                    } else if (value == 2.0) {
+                        noiseLevel = "ambient";
+                    } else if (value == 3.0) {
+                        noiseLevel = "loud";
+                    }
+                } else {
+                    if (value == 0) {
+                        zoomInteraction = "any";
+                    } else if (value == 1.0) {
+                        zoomInteraction = "minimal";
+                    } else if (value == 2.0) {
+                        zoomInteraction = "moderate";
+                    } else if (value == 3.0) {
+                        zoomInteraction = "maximal";
+                    }
+                }
+                update();
+            }
+        });
+
+        slider.setLabelFormatter(new LabelFormatter() {
+            @NonNull
+            @Override
+            public String getFormattedValue(float value) {
+                if (tabOn.equals("Study")) {
+                    if (value == 0.0f)
+                        return "Any";
+                    if (value == 1.0f)
+                        return "Quiet";
+                    if (value == 2.0f)
+                        return "Ambient";
+                    if (value == 3.0f)
+                        return "Loud";
+                } else {
+                    if (value == 0.0f)
+                        return "Any";
+                    if (value == 1.0f)
+                        return "Minimal";
+                    if (value == 2.0f)
+                        return "Moderate";
+                    if (value == 3.0f)
+                        return "Maximal";
+                }
+                return String.format(Locale.US, "%.0f", value);
+            }
+        });
 
         // Get ActionBar
         ActionBar actionBar = getSupportActionBar();
@@ -146,12 +206,6 @@ public class MainActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(this);
 
         filtersButton = (Button) findViewById(R.id.filters);
-        zoomFiltersButton = (Button) findViewById(R.id.zoomFilter);
-        zoomInteractionsTabGroup = (MaterialButtonToggleGroup) findViewById(R.id.zoomInteractionToggle);
-        anyInteraction = (Button) findViewById(R.id.anyButton);
-        minInteraction = (Button) findViewById(R.id.lowButton);
-        medInteraction = (Button) findViewById(R.id.medButton);
-        maxInteraction = (Button) findViewById(R.id.maxButton);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
@@ -161,34 +215,28 @@ public class MainActivity extends AppCompatActivity implements
         markerLocationMap = new HashMap<Marker, Location>();
 
         if (tabOn.equals("Study")) {
-            zoomFiltersButton.setVisibility(View.GONE);
+            tabOn = "Study";
             tabLayout.selectTab(tabLayout.getTabAt(0));
+            sliderLabel.setText("Noise Level");
         } else {
             tabOn = "Zoom";
-            zoomFiltersButton.setVisibility(View.VISIBLE);
             tabLayout.selectTab(tabLayout.getTabAt(1));
+            sliderLabel.setText("Interaction Level");
         }
         filtersButton.setOnClickListener(this);
-        zoomFiltersButton.setOnClickListener(this);
-        zoomInteractionsTabGroup.setOnClickListener(this);
-        anyInteraction.setOnClickListener(this);
-        minInteraction.setOnClickListener(this);
-        medInteraction.setOnClickListener(this);
-        maxInteraction.setOnClickListener(this);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                System.out.println("selected" + tab.getId() + tab.getText());
                 if ((tab.getText()).equals("Study")) {
                     tabOn = "Study";
+                    noiseLevel="any";
                     zoomInteraction="any";
-                    updateZoom();
-                    zoomFiltersButton.setVisibility(View.GONE);
-                    zoomInteractionsTabGroup.setVisibility(View.GONE);
                 } else {
                     tabOn = "Zoom";
-                    zoomFiltersButton.setVisibility(View.VISIBLE);
+                    noiseLevel="any";
+                    zoomInteraction="any";
                 }
+                update();
             }
 
             @Override
@@ -213,42 +261,10 @@ public class MainActivity extends AppCompatActivity implements
             intent.putExtra("food", food);
             intent.putExtra("zoom", zoomInteraction);
             startActivity(intent);
-        } else if (v.getId() == R.id.zoomFilter) {
-            zoomInteraction="any";
-            zoomFiltersButton.setVisibility(View.GONE);
-            zoomInteractionsTabGroup.setVisibility(View.VISIBLE);
-        } else if (v.getId() == R.id.anyButton) {
-            zoomInteraction="any";
-            updateZoom();
-            String buttonText = anyInteraction.getText().toString();
-            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
-            zoomFiltersButton.setVisibility(View.VISIBLE);
-            zoomInteractionsTabGroup.setVisibility(View.GONE);
-        } else if (v.getId() == R.id.lowButton) {
-            zoomInteraction="minimal";
-            updateZoom();
-            String buttonText = anyInteraction.getText().toString();
-            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
-            zoomFiltersButton.setVisibility(View.VISIBLE);
-            zoomInteractionsTabGroup.setVisibility(View.GONE);
-        } else if (v.getId() == R.id.medButton) {
-            zoomInteraction="moderate";
-            updateZoom();
-            String buttonText = anyInteraction.getText().toString();
-            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
-            zoomFiltersButton.setVisibility(View.VISIBLE);
-            zoomInteractionsTabGroup.setVisibility(View.GONE);
-        } else if (v.getId() == R.id.maxButton) {
-            zoomInteraction="maximal";
-            updateZoom();
-            String buttonText = anyInteraction.getText().toString();
-            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
-            zoomFiltersButton.setVisibility(View.VISIBLE);
-            zoomInteractionsTabGroup.setVisibility(View.GONE);
         }
     }
 
-    private void updateZoom() {
+    private void update() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("tab", tabOn);
         intent.putExtra("noiseLevel", noiseLevel);
@@ -305,10 +321,10 @@ public class MainActivity extends AppCompatActivity implements
             if (food && !location.getFood()) {
                 continue;
             }
-            if ((noiseLevel.equals("quiet") || noiseLevel.equals("ambient") || noiseLevel.equals("loud"))&& !noiseLevel.equals(location.getNoiseLevel())) {
+            if (tabOn.equals("Study") && !noiseLevel.equals("any") && !noiseLevel.equals(location.getNoiseLevel())) {
                 continue;
             }
-            if ((tabOn.equals("Zoom") && !zoomInteraction.equals("any")) && !zoomInteraction.equals(location.getZoom())) {
+            if (tabOn.equals("Zoom") && !zoomInteraction.equals("any") && !zoomInteraction.equals(location.getZoom())) {
                 continue;
             }
             Marker m = googleMap.addMarker(
@@ -461,4 +477,23 @@ public class MainActivity extends AppCompatActivity implements
         return Arrays.asList(new Gson().fromJson(s, type));
     }
 
+    private void setSlider() {
+        if (tabOn.equals("Study")) {
+             if (noiseLevel.equals("quiet")) {
+                slider.setValues(1.0f);
+            } else if (noiseLevel.equals("ambient")) {
+                slider.setValues(2.0f);
+            } else if (noiseLevel.equals("loud")) {
+                slider.setValues(3.0f);
+            }
+        } else {
+            if (zoomInteraction.equals("minimal")) {
+                slider.setValues(1.0f);
+            } else if (zoomInteraction.equals("moderate")) {
+                slider.setValues(2.0f);
+            } else if (zoomInteraction.equals("maximal")) {
+                slider.setValues(3.0f);
+            }
+        }
+    }
 }

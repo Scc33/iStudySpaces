@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -27,6 +28,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private Boolean groupWork;
     private Boolean coffee;
     private Boolean food;
+    private String zoomInteraction = "any";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             groupWork = extras.getBoolean("groupWork");;
             coffee = extras.getBoolean("coffee");
             food = extras.getBoolean("food");
+            zoomInteraction = extras.getString("zoom");
         }
         setContentView(R.layout.activity_filter);
 
@@ -82,6 +85,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             intent.putExtra("groupWork", groupWork);
             intent.putExtra("coffee", coffee);
             intent.putExtra("food", food);
+            intent.putExtra("zoom", zoomInteraction);
             startActivity(intent);
         } else if (v.getId() == R.id.anyButton) {
             noiseLevel = "any";
