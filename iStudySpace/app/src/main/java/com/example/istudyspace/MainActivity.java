@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private RangeSlider slider;
     private TextView sliderLabel;
+    private Button random;
 
     private String tabOn = "Study";
     private String noiseLevel = "any";
@@ -207,6 +208,8 @@ public class MainActivity extends AppCompatActivity implements
 
         filtersButton = (Button) findViewById(R.id.filters);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        random = (Button) findViewById(R.id.random);
+        random.setOnClickListener(this);
 
         bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
@@ -261,6 +264,8 @@ public class MainActivity extends AppCompatActivity implements
             intent.putExtra("food", food);
             intent.putExtra("zoom", zoomInteraction);
             startActivity(intent);
+        } else if (v.getId() == R.id.random) {
+
         }
     }
 
