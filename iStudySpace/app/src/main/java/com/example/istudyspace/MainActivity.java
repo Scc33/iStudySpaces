@@ -55,6 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 //import com.google.android.gms.common.ConnectionResult;
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private RangeSlider slider;
     private TextView sliderLabel;
+    private Button random;
+    private Random randomGenerator;
 
     private String tabOn = "Study";
     private String noiseLevel = "any";
@@ -205,9 +208,12 @@ public class MainActivity extends AppCompatActivity implements
 
         filtersButton = (Button) findViewById(R.id.filters);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        random = (Button) findViewById(R.id.random);
+        randomGenerator = new Random();
 
         bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+        random.setOnClickListener(this);
         sheetBehavior.setPeekHeight(400);
 
         markerLocationMap = new HashMap<>();
@@ -253,6 +259,7 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClick(View v) {
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
@@ -263,6 +270,10 @@ public class MainActivity extends AppCompatActivity implements
             intent.putExtra("food", food);
             intent.putExtra("zoom", zoomInteraction);
             filterResultLauncher.launch(intent);
+        } else if (v.getId() == R.id.random) {
+            int index = randomGenerator.nextInt(locations.size());
+            Location l = locations.get(index);
+            focus_pin(l.getName());
         }
     }
 
