@@ -1,72 +1,145 @@
 [
   {
-    "name": "Grainger Library",
-    "lat": 40.11270,
-    "lon": -88.22692
-  },
-  {
     "name": "Illini Union",
     "lat": 40.10954764345154,
-    "lon": -88.22724722308422
+    "lon": -88.22724722308422,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "loud",
+    "zoom": "moderate",
+    "imageFile": "union"
   },
   {
-    "name": "UGL",
+    "name": "Undergraduate Library",
     "lat": 40.10485852066087,
-    "lon": -88.22622205875562
+    "lon": -88.22622205875562,
+    "coffee": false,
+    "groupWork": true,
+    "food": false,
+    "noiseLevel": "loud",
+    "zoom": "minimal",
+    "imageFile": "ugl"
   },
   {
     "name": "Funk ACES Library",
     "lat": 40.102880814557395,
-    "lon": -88.22425868195258
+    "lon": -88.22425868195258,
+    "coffee": false,
+    "groupWork": false,
+    "food": false,
+    "noiseLevel": "quiet",
+    "zoom": "moderate",
+    "imageFile": "aces"
   },
   {
     "name": "Caffe Paradiso",
     "lat": 40.10600026564582,
-    "lon": -88.21903799312537
+    "lon": -88.21903799312537,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "loud",
+    "zoom": "minimal",
+    "imageFile": "caffeparadiso"
   },
   {
     "name": "Grainger Library",
-    "lat": 40.11682456862754,
-    "lon": -88.22881269128017
+    "lat": 40.1124364263,
+    "lon": -88.2270681838,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "quiet",
+    "zoom": "moderate",
+    "imageFile": "grainger"
   },
   {
     "name": "Illini Union Bookstore",
     "lat": 40.1084316354503,
-    "lon": -88.22968738268322
+    "lon": -88.22968738268322,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "loud",
+    "zoom": "minimal",
+    "imageFile": "bookstore"
   },
   {
     "name": "BrewLab Coffee",
     "lat": 40.11091603097556,
-    "lon": -88.23192904595666
+    "lon": -88.23192904595666,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "loud",
+    "zoom": "moderate",
+    "imageFile": "brewlab"
   },
   {
     "name": "Cafe Bene on Green",
     "lat": 40.11060830315163,
-    "lon": -88.23099153587346
+    "lon": -88.23099153587346,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "loud",
+    "zoom": "moderate",
+    "imageFile": "caffebene"
   },
   {
     "name": "Cafe Bene on Gregory",
     "lat": 40.10625602261639,
-    "lon": -88.22126449962234
+    "lon": -88.22126449962234,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "loud",
+    "zoom": "moderate",
+    "imageFile": "caffebenegregory"
   },
   {
     "name": "Siebel Center for Computer Science",
     "lat": 40.11397508525957,
-    "lon": -88.22486228643163
+    "lon": -88.22486228643163,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "ambient",
+    "zoom": "maximal",
+    "imageFile": "siebel"
   },
   {
     "name": "Siebel Center for Design",
     "lat": 40.102709000983424,
-    "lon": -88.23320438828466
+    "lon": -88.23320438828466,
+    "coffee": false,
+    "groupWork": true,
+    "food": false,
+    "noiseLevel": "quiet",
+    "zoom": "moderate",
+    "imageFile": "scd"
   },
   {
     "name": "Electrical and Computer Engineering Building",
     "lat": 40.11507637522894,
-    "lon": -88.22805523330901
+    "lon": -88.22805523330901,
+    "coffee": true,
+    "groupWork": true,
+    "food": true,
+    "noiseLevel": "loud",
+    "zoom": "minimal",
+    "imageFile": "eceb"
   },
   {
     "name": "Campus Instructional Facility",
     "lat": 40.11256525588706,
-    "lon": -88.22838309511825
+    "lon": -88.22838309511825,
+    "coffee": false,
+    "groupWork": true,
+    "food": false,
+    "noiseLevel": "ambient",
+    "zoom": "moderate",
+    "imageFile": "cif"
   }
 ]
