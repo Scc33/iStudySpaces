@@ -417,9 +417,11 @@ public class MainActivity extends AppCompatActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        Location l = markerLocationMap.get(marker);
-        loadFragment(new InfoCardFragment(l));
-        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        if (!marker.getTitle().equals("You")) {
+            Location l = markerLocationMap.get(marker);
+            loadFragment(new InfoCardFragment(l));
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
         return false;
     }
 
