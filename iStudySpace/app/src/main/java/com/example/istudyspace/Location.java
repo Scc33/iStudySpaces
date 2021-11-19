@@ -1,6 +1,10 @@
 package com.example.istudyspace;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.Map;
 
 public class Location {
     private String name;
@@ -12,6 +16,7 @@ public class Location {
     private String noiseLevel;
     private String zoom;
     private String imageFile;
+    private JsonObject hours;
 
     public String getName() {
         return name;
@@ -64,4 +69,8 @@ public class Location {
     public void setImageFile() { this.imageFile = imageFile; }
 
     public String getImageFile() {return imageFile; }
+
+    public void setHours() {this.hours = hours; }
+
+    public JsonObject getHours() { return this.hours; }
 }

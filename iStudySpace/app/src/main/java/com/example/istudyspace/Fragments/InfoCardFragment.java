@@ -13,17 +13,30 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.istudyspace.Adapters.AmentityAdapter;
+import com.example.istudyspace.Adapters.HoursAdapter;
 import com.example.istudyspace.Location;
 import com.example.istudyspace.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InfoCardFragment extends Fragment {
     View view;
     Location location;
+    String dayOfWeek;
+    HashMap<String, HoursObject> hours = new HashMap<String, HoursObject>();
     List<Integer> amentityResourceIds = new ArrayList<Integer>();
+
+    public class HoursObject {
+        private String open;
+        private String closed;
+
+        public String getOpen() {return open;}
+        public String getClosed() {return closed;}
+    }
 
     public InfoCardFragment(Location l) {
         super(R.layout.info_card);
@@ -56,26 +69,36 @@ public class InfoCardFragment extends Fragment {
                     null);
             amentityResourceIds.add(id);
         }
+        if (location.getZoom() != null) {
+            int id = getResources().getIdentifier(
+                    "com.example.istudyspace:drawable/zoom",
+                    null,
+                    null);
+            amentityResourceIds.add(id);
+        }
 
-        //TODO: add zoom to icons
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.amentity_list);
         rv.setAdapter(new AmentityAdapter(amentityResourceIds));
         //Set name
         ( (TextView) view.findViewById(R.id.location_name)).setText(location.getName());
+//        ( (TextView) view.findViewById(R.id.location_name)).setText(location.getHours().toString());
 
         //Set image
         int id = getResources().getIdentifier("com.example.istudyspace:drawable/" + location.getImageFile(), null, null);
         ( (ImageView) view.findViewById(R.id.location_image)).setImageResource(id);
 
         //Set open and closed times
+        initializeHours(view);
 
-        //Configure business hours
-
+        RecyclerView hoursView = (RecyclerView) view.findViewById(R.id.hoursRecycler);
+        List<HoursObject> o = new ArrayList<>(hours.values());
+        hoursView.setAdapter(new HoursAdapter(o));
         //Include link to room reservation
 
         //Include link to google maps directions
@@ -83,5 +106,25 @@ public class InfoCardFragment extends Fragment {
         //Include thumbs up/down component
     }
 
+    private void initializeHours(View view) {
+        Gson gson = new Gson();
+        HashMap<String, Object> weeklyHours =
+                gson.fromJson(location.getHours().toString(), HashMap.class);
+
+        //Iterate through, adding times to list.
+        for (String day : weeklyHours.keySet()) {
+            HashMap<String, String> dayHours =
+                    gson.fromJson(weeklyHours.get(day).toString(), HashMap.class);
+            HoursObject h = new HoursObject();
+            h.open = dayHours.get("open");
+            h.closed = dayHours.get("close");
+            hours.put(day, h);
+
+            ((TextView) view.findViewById(R.id.hours_today)).setText(h.open + " - " + h.closed);
+        }
+
+
+        Calendar calendar;
+    }
 
 }

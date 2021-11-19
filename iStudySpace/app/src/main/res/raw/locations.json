@@ -8,7 +8,40 @@
     "food": true,
     "noiseLevel": "loud",
     "zoom": "moderate",
-    "imageFile": "union"
+    "imageFile": "union",
+    "hours": {
+      "su" : {
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
+      },
+      "m" : {
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
+      },
+      "t" : {
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
+      },
+      "w" : {
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
+      },
+      "th" : {
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
+      },
+      "f" : {
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
+      },
+      "sa" : {
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
+      }
+    },
+    "reservation_link": "buns",
+    "like" : 78,
+    "dislike" : 21
   },
   {
     "name": "Undergraduate Library",
@@ -22,32 +55,32 @@
     "imageFile": "ugl",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -66,32 +99,32 @@
     "imageFile": "aces",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -110,32 +143,32 @@
     "imageFile": "caffeparadiso",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -154,32 +187,32 @@
     "imageFile": "grainger",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -198,32 +231,32 @@
     "imageFile": "bookstore",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -242,32 +275,32 @@
     "imageFile": "brewlab",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -286,32 +319,32 @@
     "imageFile": "caffebene",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -330,32 +363,32 @@
     "imageFile": "caffebenegregory",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -374,32 +407,32 @@
     "imageFile": "siebel",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -418,32 +451,32 @@
     "imageFile": "scd",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -462,32 +495,32 @@
     "imageFile": "eceb",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",
@@ -506,32 +539,32 @@
     "imageFile": "cif",
     "hours": {
       "su" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "m" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "t" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "w" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "th" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "f" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       },
       "sa" : {
-        "open": "8:00",
-        "close" : "3:00"
+        "open": "\"8:00AM\"",
+        "close" : "\"3:00AM\""
       }
     },
     "reservation_link": "buns",

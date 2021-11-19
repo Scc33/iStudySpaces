@@ -35,6 +35,7 @@ import androidx.appcompat.app.AlertDialog;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -69,6 +70,7 @@ import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -367,7 +369,9 @@ public class MainActivity extends AppCompatActivity implements
 
         BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-        locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
+        Type listType = new TypeToken<List<Location>>(){}.getType();
+        locations = gson.fromJson(bufferedReader, listType);
+//        locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
         for(Location location : locations) {
             if (coffee && !location.getCoffee()) {
                 continue;
