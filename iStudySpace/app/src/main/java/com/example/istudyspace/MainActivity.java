@@ -2,10 +2,12 @@ package com.example.istudyspace;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.icu.text.IDNA;
 import android.os.Build;
@@ -19,27 +21,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import android.widget.EditText;
-import android.widget.SearchView;
-import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -70,10 +59,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.slider.LabelFormatter;
+import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 
@@ -82,7 +75,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -111,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private RangeSlider slider;
     private TextView sliderLabel;
+    private Button random;
+    private Random randomGenerator;
 
     private String tabOn = "Study";
     private String noiseLevel = "any";
@@ -121,6 +120,15 @@ public class MainActivity extends AppCompatActivity implements
     private List<Location> locations;
     private List<String> all_location;
     private MenuItem searchMenu;
+
+    private ActivityResultLauncher<Intent> filterResultLauncher;
+
+    private final int DEFAULT_WIDTH = 69;
+    private final int DEFAULT_HEIGHT = 110;
+
+    private final int ZOOM_WIDTH = 94;
+    private final int ZOOM_HEIGHT = 135;
+    private final double ZOOM_PIN_OFFSET = 0.0002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +149,22 @@ public class MainActivity extends AppCompatActivity implements
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));*/
         }
         setContentView(R.layout.activity_main);
+
+        // Setup Result Catcher to get data from Filter Activity
+        // Allows us to leave MainActivity running for when user goes into filters
+        filterResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Bundle extras1 = result.getData().getExtras();
+                        groupWork = extras1.getBoolean("groupWork");
+                        coffee = extras1.getBoolean("coffee");
+                        food = extras1.getBoolean("food");
+                        //Log.d("Coffee", coffee.toString());
+                        updateMap();
+                    }
+                });
+
         sliderLabel = (TextView) findViewById(R.id.sliderLabel);
 
         slider = findViewById(R.id.slider);
@@ -170,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements
                         zoomInteraction = "maximal";
                     }
                 }
-                update();
+                updateMap();
             }
         });
 
@@ -213,11 +237,16 @@ public class MainActivity extends AppCompatActivity implements
 
         filtersButton = (Button) findViewById(R.id.filters);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        random = (Button) findViewById(R.id.random);
+        randomGenerator = new Random();
 
         bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
+        random.setOnClickListener(this);
         sheetBehavior.setPeekHeight(400);
         sheetBehavior.setHideable(true);
+
+        markerLocationMap = new HashMap<>();
 
         if (tabOn.equals("Study")) {
             tabOn = "Study";
@@ -236,12 +265,16 @@ public class MainActivity extends AppCompatActivity implements
                     tabOn = "Study";
                     noiseLevel="any";
                     zoomInteraction="any";
+                    sliderLabel.setText("Noise Level");
+                    updateToDefaultPins();
                 } else {
                     tabOn = "Zoom";
                     noiseLevel="any";
                     zoomInteraction="any";
+                    sliderLabel.setText("Interaction Level");
+                    updateToZoomPins();
                 }
-                update();
+                updateMap();
             }
 
             @Override
@@ -256,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClick(View v) {
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
@@ -265,19 +299,36 @@ public class MainActivity extends AppCompatActivity implements
             intent.putExtra("coffee", coffee);
             intent.putExtra("food", food);
             intent.putExtra("zoom", zoomInteraction);
-            startActivity(intent);
+            filterResultLauncher.launch(intent);
+        } else if (v.getId() == R.id.random) {
+            int index = randomGenerator.nextInt(locations.size());
+            Location l = locations.get(index);
+            focus_pin(l.getName());
         }
     }
 
-    private void update() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("tab", tabOn);
-        intent.putExtra("noiseLevel", noiseLevel);
-        intent.putExtra("groupWork", groupWork);
-        intent.putExtra("coffee", coffee);
-        intent.putExtra("food", food);
-        intent.putExtra("zoom", zoomInteraction);
-        startActivity(intent);
+    private void updateMap() {
+        // Check for markers that need to be removed by the filters
+        for (Marker m: markerLocationMap.keySet()) {
+            Location loc = markerLocationMap.get(m);
+            // Start with marker visible and remove based on each filter
+            m.setVisible(true);
+            if (coffee && !loc.getCoffee()) {
+                m.setVisible(false);
+            }
+            else if (groupWork && !loc.getGroupWork()) {
+                m.setVisible(false);
+            }
+            else if (food && !loc.getFood()) {
+                m.setVisible(false);
+            }
+            else if (tabOn.equals("Study") && !noiseLevel.equals("any") && !noiseLevel.equals(loc.getNoiseLevel())) {
+                m.setVisible(false);
+            }
+            else if (tabOn.equals("Zoom") && !zoomInteraction.equals("any") && !zoomInteraction.equals(loc.getZoom())) {
+                m.setVisible(false);
+            }
+        }
     }
 
     @Override
@@ -302,15 +353,21 @@ public class MainActivity extends AppCompatActivity implements
         return super.dispatchTouchEvent(event);
     }
 
-    //Load map pins into map from JSON
-    public void updateMapPins(@NonNull GoogleMap googleMap) {
-        markerLocationMap = new HashMap<Marker, Location>();
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+        map.setOnMarkerClickListener(this);
+        map.setOnMapClickListener(this);
+
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         Gson gson = new Gson();
 
-        List<Location> locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
+        BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
+        locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()), Location[].class);
         for(Location location : locations) {
             if (coffee && !location.getCoffee()) {
                 continue;
@@ -329,24 +386,12 @@ public class MainActivity extends AppCompatActivity implements
             }
             Marker m = googleMap.addMarker(
                     new MarkerOptions()
+                            .icon(defaultPin)
                             .position(location.getCoords())
                             .title(location.getName())
             );
             markerLocationMap.put(m, location);
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        map = googleMap;
-
-        map.setOnMarkerClickListener(this);
-        map.setOnMapClickListener(this);
-
-        //Load all map pins into map from JSON
-        updateMapPins(googleMap);
-
         //Set position for current location in middle of campus
         LatLng cur_position = new LatLng(40.108014, -88.227265);
         MarkerOptions markerOptions = new MarkerOptions().position(cur_position).title("You")
@@ -510,5 +555,53 @@ public class MainActivity extends AppCompatActivity implements
                 slider.setValues(3.0f);
             }
         }
+    }
+    private void updateToDefaultPins() {
+        // Remove a couple example markers
+        BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        for (Marker m: markerLocationMap.keySet()) {
+            if (m.getTitle().equals("Grainger Library")) {
+                m.setIcon(defaultPin);
+            } else if (m.getTitle().equals("Undergraduate Library")) {
+                m.setIcon(defaultPin);
+            }
+        }
+        /*
+         Add 2 example zoom markers
+        Location location = locations.get(4); // Grainger
+        BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        markerLocationMap.put(map.addMarker(new MarkerOptions().icon(defaultPin).position(location.getCoords()).title(location.getName())), location);
+        location = locations.get(1); // UGL
+        markerLocationMap.put(map.addMarker(new MarkerOptions().icon(defaultPin).position(location.getCoords()).title(location.getName())), location);
+        */
+    }
+
+    private void updateToZoomPins() {
+        // Remove a couple example markers
+        BitmapDescriptor zoomPin;
+        for (Marker m: markerLocationMap.keySet()) {
+            if (m.getTitle().equals("Grainger Library")) {
+                zoomPin = getBitmapIcon(R.drawable.pin_6, ZOOM_WIDTH, ZOOM_HEIGHT);
+                m.setIcon(zoomPin);
+            } else if (m.getTitle().equals("Undergraduate Library")) {
+                zoomPin = getBitmapIcon(R.drawable.pin_2, ZOOM_WIDTH, ZOOM_HEIGHT);
+                m.setIcon(zoomPin);
+            }
+        }
+        /*
+         Add 2 example zoom markers
+        Location location = locations.get(4); // Grainger
+        BitmapDescriptor zoomPin = getBitmapIcon(R.drawable.pin_6, ZOOM_WIDTH, ZOOM_HEIGHT);
+        markerLocationMap.put(map.addMarker(new MarkerOptions().icon(zoomPin).position(new LatLng(location.getLat(), location.getLon() + ZOOM_PIN_OFFSET)).title(location.getName())), location);
+        location = locations.get(1); // UGL
+        zoomPin = getBitmapIcon(R.drawable.pin_2, ZOOM_WIDTH, ZOOM_HEIGHT);
+        markerLocationMap.put(map.addMarker(new MarkerOptions().icon(zoomPin).position(new LatLng(location.getLat(), location.getLon() + ZOOM_PIN_OFFSET)).title(location.getName())), location);
+        */
+    }
+
+    private BitmapDescriptor getBitmapIcon(int resourceId, int width, int height) {
+        Bitmap b = BitmapFactory.decodeResource(getResources(), resourceId);
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+        return BitmapDescriptorFactory.fromBitmap(smallMarker);
     }
 }

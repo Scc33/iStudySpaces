@@ -9,117 +9,87 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingEnd="30dp"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="1dp">
+
             <TextView
+                style="@style/TextAppearance.AppCompat.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Large"
-                android:text="Filters"/>
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/toggleButton"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                app:selectionRequired="true"
-                app:singleSelection="true"
-                android:layout_gravity="center">
-                <Button
-                    android:id="@+id/anyButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/filter_4"
-                    style="?attr/materialButtonOutlinedStyle"
-                    />
-                <Button
-                    android:id="@+id/quietButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/filter_5"
-                    style="?attr/materialButtonOutlinedStyle"
-                    />
-                <Button
-                    android:id="@+id/ambientButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/filter_6"
-                    style="?attr/materialButtonOutlinedStyle"
-                    />
-                <Button
-                    android:id="@+id/loudButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/filter_7"
-                    style="?attr/materialButtonOutlinedStyle"
-                    />
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+                android:text="Filters" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/groupCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="@string/filter_1"/>
+                    android:text="@string/filter_1" />
+
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/coffeeCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="@string/filter_2"/>
+                    android:text="@string/filter_2" />
+
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/foodCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="@string/filter_3"/>
+                    android:text="@string/filter_3" />
             </LinearLayout>
+
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Max Distance">
-            </com.google.android.material.textview.MaterialTextView>
+                android:text="Max Distance"></com.google.android.material.textview.MaterialTextView>
+
             <com.google.android.material.slider.Slider
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="3"
+                android:stepSize="0.5"
                 android:valueFrom="0.0"
-                android:valueTo="2.0"
-                android:stepSize="0.5" >
-            </com.google.android.material.slider.Slider>
+                android:valueTo="2.0"></com.google.android.material.slider.Slider>
+
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Minimum Distance">
-            </com.google.android.material.textview.MaterialTextView>
+                android:text="Minimum Distance"></com.google.android.material.textview.MaterialTextView>
+
             <com.google.android.material.slider.Slider
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="3"
+                android:stepSize="0.5"
                 android:valueFrom="0.0"
-                android:valueTo="2.0"
-                android:stepSize="0.5" >
-            </com.google.android.material.slider.Slider>
+                android:valueTo="2.0"></com.google.android.material.slider.Slider>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Apply">
-            </com.google.android.material.button.MaterialButton>
+                android:text="Apply"></com.google.android.material.button.MaterialButton>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
