@@ -1,0 +1,72 @@
+<resources>
+    <string-array name="Grainger">
+        <item>Grainger Library</item>
+        <item>40.11270</item>
+        <item>-88.22692</item>
+    </string-array>
+    <string-array name="IlliniUnion">
+        <item>Illini Union</item>
+        <item>40.10954764345154</item>
+        <item>-88.22724722308422</item>
+    </string-array>
+    <string-array name="UGL">
+        <item>UGL</item>
+        <item>40.10485852066087</item>
+        <item>-88.22622205875562</item>
+    </string-array>
+    <string-array name="FunkLibrary">
+        <item>Funk ACES Library</item>
+        <item>40.102880814557395</item>
+        <item>-88.22425868195258</item>
+    </string-array>
+    <string-array name="CaffeParadiso">
+        <item>Caffe Paradiso</item>
+        <item>40.10600026564582</item>
+        <item>-88.21903799312537</item>
+    </string-array>
+    <string-array name="Bearology">
+        <item>Grainger Library</item>
+        <item>40.11682456862754</item>
+        <item>-88.22881269128017</item>
+    </string-array>
+    <string-array name="IlliniUnionBookstore">
+        <item>Illini Union Bookstore</item>
+        <item>40.1084316354503</item>
+        <item>-88.22968738268322</item>
+    </string-array>
+    <string-array name="BrewLab">
+        <item>BrewLab Coffee</item>
+        <item>40.11091603097556</item>
+        <item>-88.23192904595666</item>
+    </string-array>
+    <string-array name="CafeBeneGreen">
+        <item>Cafe Bene on Green</item>
+        <item>40.11060830315163</item>
+        <item>-88.23099153587346</item>
+    </string-array>
+    <string-array name="CafeBeneGregory">
+        <item>Cafe Bene on Gregory</item>
+        <item>40.10625602261639</item>
+        <item>-88.22126449962234</item>
+    </string-array>
+    <string-array name="SiebelCS">
+        <item>Siebel Center for Computer Science</item>
+        <item>40.11397508525957</item>
+        <item>-88.22486228643163</item>
+    </string-array>
+    <string-array name="SiebelDesign">
+        <item>Siebel Center for Design</item>
+        <item>40.102709000983424</item>
+        <item>-88.23320438828466</item>
+    </string-array>
+    <string-array name="ECEB">
+        <item>Electrical and Computer Engineering Building</item>
+        <item>40.11507637522894</item>
+        <item>-88.22805523330901</item>
+    </string-array>
+    <string-array name="CIF">
+        <item>Campus Instructional Facility</item>
+        <item>40.11256525588706</item>
+        <item>-88.22838309511825</item>
+    </string-array>
+</resources>
