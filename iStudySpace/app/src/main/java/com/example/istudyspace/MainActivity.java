@@ -49,9 +49,6 @@ import java.util.stream.Collectors;
 import com.example.istudyspace.Fragments.InfoCardFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.slider.LabelFormatter;
-import com.google.android.material.slider.RangeSlider;
-import com.google.android.material.slider.Slider;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,9 +62,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.slider.LabelFormatter;
-import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -108,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private Map<Marker, Location> markerLocationMap;
 
-    private RangeSlider slider;
-    private TextView sliderLabel;
     private Button random;
     private Random randomGenerator;
 
@@ -167,66 +159,6 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 });
 
-        sliderLabel = (TextView) findViewById(R.id.sliderLabel);
-
-        slider = findViewById(R.id.slider);
-        slider.setTickVisible(true);
-        setSlider();
-        slider.addOnChangeListener(new RangeSlider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                if (tabOn.equals("Study")) {
-                    if (value == 0) {
-                        noiseLevel = "any";
-                    } else if (value == 1.0) {
-                        noiseLevel = "quiet";
-                    } else if (value == 2.0) {
-                        noiseLevel = "ambient";
-                    } else if (value == 3.0) {
-                        noiseLevel = "loud";
-                    }
-                } else {
-                    if (value == 0) {
-                        zoomInteraction = "any";
-                    } else if (value == 1.0) {
-                        zoomInteraction = "minimal";
-                    } else if (value == 2.0) {
-                        zoomInteraction = "moderate";
-                    } else if (value == 3.0) {
-                        zoomInteraction = "maximal";
-                    }
-                }
-                updateMap();
-            }
-        });
-
-        slider.setLabelFormatter(new LabelFormatter() {
-            @NonNull
-            @Override
-            public String getFormattedValue(float value) {
-                if (tabOn.equals("Study")) {
-                    if (value == 0.0f)
-                        return "Any";
-                    if (value == 1.0f)
-                        return "Quiet";
-                    if (value == 2.0f)
-                        return "Ambient";
-                    if (value == 3.0f)
-                        return "Loud";
-                } else {
-                    if (value == 0.0f)
-                        return "Any";
-                    if (value == 1.0f)
-                        return "Minimal";
-                    if (value == 2.0f)
-                        return "Moderate";
-                    if (value == 3.0f)
-                        return "Maximal";
-                }
-                return String.format(Locale.US, "%.0f", value);
-            }
-        });
-
         // Get ActionBar
         ActionBar actionBar = getSupportActionBar();
         // Set below attributes to add logo in ActionBar.
@@ -253,11 +185,9 @@ public class MainActivity extends AppCompatActivity implements
         if (tabOn.equals("Study")) {
             tabOn = "Study";
             tabLayout.selectTab(tabLayout.getTabAt(0));
-            sliderLabel.setText("Noise Level");
         } else {
             tabOn = "Zoom";
             tabLayout.selectTab(tabLayout.getTabAt(1));
-            sliderLabel.setText("Interaction Level");
         }
         filtersButton.setOnClickListener(this);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -267,13 +197,11 @@ public class MainActivity extends AppCompatActivity implements
                     tabOn = "Study";
                     noiseLevel="any";
                     zoomInteraction="any";
-                    sliderLabel.setText("Noise Level");
                     updateToDefaultPins();
                 } else {
                     tabOn = "Zoom";
                     noiseLevel="any";
                     zoomInteraction="any";
-                    sliderLabel.setText("Interaction Level");
                     updateToZoomPins();
                 }
                 updateMap();
@@ -541,25 +469,6 @@ public class MainActivity extends AppCompatActivity implements
         return Arrays.asList(new Gson().fromJson(s, type));
     }
 
-    private void setSlider() {
-        if (tabOn.equals("Study")) {
-            if (noiseLevel.equals("quiet")) {
-                slider.setValues(1.0f);
-            } else if (noiseLevel.equals("ambient")) {
-                slider.setValues(2.0f);
-            } else if (noiseLevel.equals("loud")) {
-                slider.setValues(3.0f);
-            }
-        } else {
-            if (zoomInteraction.equals("minimal")) {
-                slider.setValues(1.0f);
-            } else if (zoomInteraction.equals("moderate")) {
-                slider.setValues(2.0f);
-            } else if (zoomInteraction.equals("maximal")) {
-                slider.setValues(3.0f);
-            }
-        }
-    }
     private void updateToDefaultPins() {
         // Remove a couple example markers
         BitmapDescriptor defaultPin = getBitmapIcon(R.drawable.pin_default, DEFAULT_WIDTH, DEFAULT_HEIGHT);

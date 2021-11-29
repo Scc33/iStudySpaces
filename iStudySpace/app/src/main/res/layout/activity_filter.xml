@@ -21,11 +21,10 @@
             tools:layout_editor_absoluteY="1dp">
 
             <TextView
-                style="@style/TextAppearance.AppCompat.Large"
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Filters" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -33,21 +32,18 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
-
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/groupCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/filter_1" />
-
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/coffeeCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="@string/filter_2" />
-
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/foodCheck"
                     android:layout_width="wrap_content"
@@ -55,41 +51,63 @@
                     android:checked="false"
                     android:text="@string/filter_3" />
             </LinearLayout>
-
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Max Distance"></com.google.android.material.textview.MaterialTextView>
-
+                android:text="Max Distance"
+                style="@style/TextAppearance.AppCompat.Medium"/>
             <com.google.android.material.slider.Slider
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 android:stepSize="0.5"
                 android:valueFrom="0.0"
-                android:valueTo="2.0"></com.google.android.material.slider.Slider>
-
-            <com.google.android.material.textview.MaterialTextView
+                android:valueTo="2.0"/>
+            <TextView
+                android:id="@+id/noiseSliderLabel"
+                android:text="Noise Level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Minimum Distance"></com.google.android.material.textview.MaterialTextView>
-
-            <com.google.android.material.slider.Slider
+                style="@style/TextAppearance.AppCompat.Medium"/>
+            <TextView
+                android:id="@+id/noiseDescription"
+                android:text="How loud do you like it when studying?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/noiseSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                android:stepSize="0.5"
                 android:valueFrom="0.0"
-                android:valueTo="2.0"></com.google.android.material.slider.Slider>
-
+                android:valueTo="3.0"
+                android:stepSize="1.0" />
+            <TextView
+                android:id="@+id/interactionSliderLabel"
+                android:text="Interaction Level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Medium"/>
+            <TextView
+                android:id="@+id/interactionDescription"
+                android:text="How much interaction is required during the video call?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/interactionSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:valueFrom="0.0"
+                android:valueTo="3.0"
+                android:stepSize="1.0" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Apply"></com.google.android.material.button.MaterialButton>
+                android:text="Apply"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
