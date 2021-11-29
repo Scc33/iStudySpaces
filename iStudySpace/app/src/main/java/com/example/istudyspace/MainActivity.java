@@ -154,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements
                         groupWork = extras1.getBoolean("groupWork");
                         coffee = extras1.getBoolean("coffee");
                         food = extras1.getBoolean("food");
+                        noiseLevel = extras1.getString("noiseLevel");
+                        zoomInteraction = extras1.getString("zoom");
                         //Log.d("Coffee", coffee.toString());
                         updateMap();
                     }
@@ -195,13 +197,13 @@ public class MainActivity extends AppCompatActivity implements
             public void onTabSelected(TabLayout.Tab tab) {
                 if ((tab.getText()).equals("Study")) {
                     tabOn = "Study";
-                    noiseLevel="any";
-                    zoomInteraction="any";
+                    //noiseLevel="any";
+                    //zoomInteraction="any";
                     updateToDefaultPins();
                 } else {
                     tabOn = "Zoom";
-                    noiseLevel="any";
-                    zoomInteraction="any";
+                    //noiseLevel="any";
+                    //zoomInteraction="any";
                     updateToZoomPins();
                 }
                 updateMap();
