@@ -22,6 +22,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private CheckBox groupButton;
     private CheckBox coffeeButton;
     private CheckBox foodButton;
+    private RangeSlider maxDistSlider;
     private RangeSlider noiseSlider;
     private RangeSlider interactionSlider;
 
@@ -33,6 +34,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private Boolean groupWork;
     private Boolean coffee;
     private Boolean food;
+    private float maxDist;
     private String zoomInteraction = "any";
 
     @Override
@@ -46,6 +48,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             coffee = extras.getBoolean("coffee");
             food = extras.getBoolean("food");
             zoomInteraction = extras.getString("zoom");
+            maxDist = extras.getFloat("maxDist");
         }
         setContentView(R.layout.activity_filter);
 
@@ -54,11 +57,15 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         coffeeButton = (CheckBox) findViewById(R.id.coffeeCheck);
         foodButton = (CheckBox) findViewById(R.id.foodCheck);
 
+        maxDistSlider = findViewById(R.id.maxDistSlider);
         noiseSlider = findViewById(R.id.noiseSlider);
         interactionSlider = findViewById(R.id.interactionSlider);
 
+        maxDistSlider.setTickVisible(true);
         noiseSlider.setTickVisible(true);
         interactionSlider.setTickVisible(true);
+
+        maxDistSlider.setValues(maxDist);
         if (noiseLevel.equals("quiet")) {
             noiseSlider.setValues(1.0f);
         } else if (noiseLevel.equals("ambient")) {
@@ -99,6 +106,12 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
                 } else if (value == 3.0) {
                     zoomInteraction = "maximal";
                 }
+            }
+        });
+        maxDistSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                maxDist = value;
             }
         });
         noiseSlider.setLabelFormatter(new LabelFormatter() {
@@ -151,6 +164,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             intent.putExtra("coffee", coffee);
             intent.putExtra("food", food);
             intent.putExtra("zoom", zoomInteraction);
+            intent.putExtra("maxDist", maxDist);
             setResult(Activity.RESULT_OK, intent);
             finish();
         } else if (v.getId() == R.id.groupCheck) {

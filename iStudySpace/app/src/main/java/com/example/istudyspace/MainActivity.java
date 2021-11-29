@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.icu.text.IDNA;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements
     private Boolean coffee = false;
     private Boolean food = false;
     private String zoomInteraction = "any";
+    private float maxDist = 2.0f;
     private List<Location> locations;
     private List<String> all_location;
     private MenuItem searchMenu;
@@ -136,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements
             coffee = extras.getBoolean("coffee");
             food = extras.getBoolean("food");
             zoomInteraction = extras.getString("zoom");
+            maxDist = extras.getFloat("maxDist");
             /*map.addMarker(new MarkerOptions()
                     .position(new LatLng( 40.10954764345154,-88.227268))
                     .title("This is my title")
@@ -156,7 +159,8 @@ public class MainActivity extends AppCompatActivity implements
                         food = extras1.getBoolean("food");
                         noiseLevel = extras1.getString("noiseLevel");
                         zoomInteraction = extras1.getString("zoom");
-                        //Log.d("Coffee", coffee.toString());
+                        maxDist = extras1.getFloat("maxDist");
+                        Log.d("maxDist", "" + maxDist);
                         updateMap();
                     }
                 });
@@ -231,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements
             intent.putExtra("coffee", coffee);
             intent.putExtra("food", food);
             intent.putExtra("zoom", zoomInteraction);
+            intent.putExtra("maxDist", maxDist);
             filterResultLauncher.launch(intent);
         } else if (v.getId() == R.id.random) {
             int index = randomGenerator.nextInt(locations.size());
