@@ -44,7 +44,8 @@
                     android:id="@+id/random"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Find me something new"/>
+                    android:text="Find me something new"
+                    android:tooltipText="Displays a random location"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/filters"
                     android:layout_width="match_parent"
@@ -52,7 +53,8 @@
                     android:layout_gravity="top"
                     android:text="Filters"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:tooltipText="Filter locations by preferences"/>
             </LinearLayout>
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/maps"
