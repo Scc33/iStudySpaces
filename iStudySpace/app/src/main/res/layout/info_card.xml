@@ -21,26 +21,33 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="21mm"
+            android:orientation="horizontal"
+            android:paddingBottom="2mm">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/location_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Location Name"
-                    android:maxLines="2"
+                    android:autoSizeMaxTextSize="25sp"
                     android:autoSizeTextType="uniform"
+                    android:maxLines="2"
+                    android:text="Location Name"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:autoSizeMaxTextSize="25sp" />
+                    android:textSize="20sp" />
+
+                <!-- filler -->
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,10 +59,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.75"
-                        android:text="Open"
                         android:singleLine="true"
+                        android:text="Open"
                         android:textColor="@color/quantum_googgreen"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -66,33 +73,35 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/amentity_list"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:layout_weight="1"/>
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_height="match_parent"
                         android:layout_gravity="end"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1">
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/like_button_preview"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_thumb_up_24"/>
+                            android:layout_height="match_parent"
+                            android:paddingRight="0.5mm"
+                            android:src="@drawable/ic_baseline_thumb_up_24" />
+
                         <TextView
                             android:id="@+id/like_percent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
+                            android:layout_height="match_parent"
                             android:text="78%"
-                            android:textSize="16sp"/>
+                            android:textAlignment="gravity"
+                            android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
-
 
 
             </LinearLayout>
@@ -101,9 +110,9 @@
                 android:id="@+id/location_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="top"
-                android:contentDescription="Picture of location"/>
+                android:layout_weight="1"
+                android:contentDescription="Picture of location" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +123,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="2mm">
+
                 <LinearLayout
                     android:layout_width="205dp"
                     android:layout_height="wrap_content"
@@ -137,6 +148,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="2mm"
                             android:text="a short little description" />
 
                         <TextView
@@ -145,11 +157,12 @@
                             android:text="Details"
                             android:textSize="20sp" />
 
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="2mm"
                             android:text="a short little description" />
-
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -162,19 +175,21 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="end">
+                    android:layout_gravity="end"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hours"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/hoursRecycler"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -184,26 +199,33 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Is this a good spot?"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_thumb_up_24"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="10dp"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3"
+                        android:src="@drawable/ic_baseline_thumb_up_24" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_thumb_down_24"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="10dp"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3"
+                        android:src="@drawable/ic_baseline_thumb_down_24" />
                 </LinearLayout>
             </LinearLayout>
 
