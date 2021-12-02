@@ -212,6 +212,7 @@
                     android:layout_gravity="center">
 
                     <ImageView
+                        android:id="@+id/thumbs_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -220,6 +221,7 @@
                         android:src="@drawable/ic_baseline_thumb_up_24" />
 
                     <ImageView
+                        android:id="@+id/thumbs_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -227,6 +229,30 @@
                         android:scaleY="1.3"
                         android:src="@drawable/ic_baseline_thumb_down_24" />
                 </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_gravity="center">-->
+
+<!--                    <RadioGroup-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <RadioButton android:id="@+id/upvote"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:button="@drawable/upvote"-->
+<!--                            android:onClick="onRadioButtonClicked"/>-->
+<!--                        <RadioButton android:id="@+id/downvote"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:button="@drawable/downvote"-->
+<!--                            android:onClick="onRadioButtonClicked"/>-->
+<!--                    </RadioGroup>-->
+
+<!--                </LinearLayout>-->
             </LinearLayout>
 
 
