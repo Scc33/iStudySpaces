@@ -246,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements
         sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
         random.setOnClickListener(this);
         sheetBehavior.setPeekHeight(400);
+//        sheetBehavior.s
         sheetBehavior.setHideable(true);
 
         markerLocationMap = new HashMap<>();
