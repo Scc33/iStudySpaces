@@ -26,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import static android.location.Location.distanceBetween;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements
     private Button random;
     private Random randomGenerator;
 
+    private Button centerButton;
+
     private String tabOn = "Study";
     private String noiseLevel = "any";
     private Boolean groupWork = false;
@@ -180,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(this);
 
         filtersButton = (Button) findViewById(R.id.filters);
+        centerButton = (Button) findViewById(R.id.centerMap);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         random = (Button) findViewById(R.id.random);
         randomGenerator = new Random();
@@ -200,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements
             tabLayout.selectTab(tabLayout.getTabAt(1));
         }
         filtersButton.setOnClickListener(this);
+        centerButton.setOnClickListener(this);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -245,6 +251,8 @@ public class MainActivity extends AppCompatActivity implements
             int index = randomGenerator.nextInt(locations.size());
             Location l = locations.get(index);
             focus_pin(l.getName());
+        } else if (v.getId() == R.id.centerMap) {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(you.getPosition(), 15));
         }
     }
 
