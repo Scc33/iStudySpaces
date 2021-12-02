@@ -381,9 +381,11 @@ public class MainActivity extends AppCompatActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        Location l = markerLocationMap.get(marker);
-        loadFragment(new InfoCardFragment(l));
-        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        if (!marker.getTitle().equals("You")) {
+            Location l = markerLocationMap.get(marker);
+            loadFragment(new InfoCardFragment(l));
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
         return false;
     }
 
@@ -408,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements
         // Get SearchView autocomplete object.
         final androidx.appcompat.widget.SearchView.SearchAutoComplete searchAutoComplete = (androidx.appcompat.widget.SearchView.SearchAutoComplete)searchView.findViewById(androidx.appcompat.R.id.search_src_text);
 
-        searchAutoComplete.setBackgroundColor(Color.parseColor("#FFDD3403"));
+        searchAutoComplete.setBackgroundColor(Color.parseColor("#FFE56E15"));
         searchAutoComplete.setTextColor(Color.BLACK);
         searchAutoComplete.setDropDownBackgroundResource(android.R.color.darker_gray);
 
@@ -446,19 +448,37 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         // Below event is triggered when submit search query.
+        // Below event is triggered when submit search query.
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onQueryTextSubmit(String query) {
                 closeKeyboard();
-                if (!all_location.contains(query)) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setMessage("Location is Invalid! ");
-                    alertDialog.show();
+
+//                if (!all_location.contains(query)) {
+//                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//                    alertDialog.setMessage("Location is Invalid! ");
+//                    alertDialog.show();
+//                }
+//                else{
+//                    focus_pin(query);
+//                }
+
+                List<Location> locations = new ArrayList<Location>();
+
+
+                for (Marker m: markerLocationMap.keySet()) {
+                    Location loc = markerLocationMap.get(m);
+                    // Start with marker visible and remove based on each filter
+                    m.setVisible(true);
+                    if (!loc.getName().toLowerCase().matches(".*"+ query.toLowerCase() + ".*")){
+                        locations.add(loc);
+                        m.setVisible(false);
+                        System.out.println(loc.getName());
+                    }
                 }
-                else{
-                    focus_pin(query);
-                }
+
+
                 return false;
             }
             @Override
@@ -467,9 +487,13 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-
-
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        return false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
