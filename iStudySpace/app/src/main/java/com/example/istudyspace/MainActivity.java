@@ -391,9 +391,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onMapClick(LatLng l) {
-        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        try {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 //        bottomSheetLayout.setVisibility(View.INVISIBLE);
-        ((ImageView) findViewById(R.id.location_image)).setImageResource(0);
+            ((ImageView) findViewById(R.id.location_image)).setImageResource(0);
+        }
+        catch (NullPointerException e){
+            System.out.println("Bottom Sheet Error at Non-Study-Spots Location Pin ");
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -503,12 +508,12 @@ public class MainActivity extends AppCompatActivity implements
 
             if (location.getName().equals(loc)){
                 Marker marker = entry.getKey();
-                Marker m = map.addMarker(
-                        new MarkerOptions()
-                                .position(location.getCoords())
-                                .title(location.getName()));
+//                Marker m = map.addMarker(
+//                        new MarkerOptions()
+//                                .position(location.getCoords())
+//                                .title(location.getName()));
 
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(m.getPosition(), 18));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
                 marker.showInfoWindow();
                 onMarkerClick(marker);
                 break;
