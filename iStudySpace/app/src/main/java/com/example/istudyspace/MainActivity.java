@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import static android.location.Location.distanceBetween;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -112,12 +113,15 @@ public class MainActivity extends AppCompatActivity implements
     private Boolean coffee = false;
     private Boolean food = false;
     private String zoomInteraction = "any";
-    private float maxDist = 2.0f;
+    private float maxDist = 1.0f;
     private List<Location> locations;
     private List<String> all_location;
     private MenuItem searchMenu;
 
     private ActivityResultLauncher<Intent> filterResultLauncher;
+
+    private final double INITIAL_LAT = 40.108014, INITIAL_LONG = -88.227265;
+    private Marker you;
 
     private final int DEFAULT_WIDTH = 69;
     private final int DEFAULT_HEIGHT = 110;
@@ -250,7 +254,14 @@ public class MainActivity extends AppCompatActivity implements
             Location loc = markerLocationMap.get(m);
             // Start with marker visible and remove based on each filter
             m.setVisible(true);
-            if (coffee && !loc.getCoffee()) {
+            // Finds distance in meters and convert to miles
+            float[] dist = new float[3];
+            distanceBetween(you.getPosition().latitude, you.getPosition().longitude, loc.getLat(), loc.getLon(), dist);
+            float distMi = dist[0] / 1609.34f;
+            if (maxDist > 0 && distMi > maxDist) {
+                m.setVisible(false);
+            }
+            else if (coffee && !loc.getCoffee()) {
                 m.setVisible(false);
             }
             else if (groupWork && !loc.getGroupWork()) {
@@ -332,14 +343,32 @@ public class MainActivity extends AppCompatActivity implements
             markerLocationMap.put(m, location);
         }
         //Set position for current location in middle of campus
-        LatLng cur_position = new LatLng(40.108014, -88.227265);
+        LatLng cur_position = new LatLng(INITIAL_LAT, INITIAL_LONG);
         MarkerOptions markerOptions = new MarkerOptions().position(cur_position).title("You")
                 .draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-        googleMap.addMarker(markerOptions);
+        you = googleMap.addMarker(markerOptions);
 
         //Center camera on current location
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(cur_position));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur_position, 15));
+
+        // Update your location when the marker is dragged
+        googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker arg0) {
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public void onMarkerDragEnd(Marker m) {
+                you = m;
+                updateMap();
+            }
+
+            @Override
+            public void onMarkerDrag(Marker arg0) {
+            }
+        });
     }
 
     private void loadFragment(Fragment fragment) {

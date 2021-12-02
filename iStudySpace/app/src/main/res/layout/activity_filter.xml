@@ -54,20 +54,22 @@
                     android:text="@string/filter_3"
                     android:tooltipText="Filter by locations with food"/>
             </LinearLayout>
+
             <com.google.android.material.textview.MaterialTextView
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Max Distance"
-                style="@style/TextAppearance.AppCompat.Medium"/>
+                android:text="Max Distance (miles)" />
+
             <com.google.android.material.slider.RangeSlider
                 android:id="@+id/maxDistSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                android:stepSize="0.5"
+                android:stepSize="0.25"
                 android:valueFrom="0.0"
-                android:valueTo="2.0"/>
+                android:valueTo="1.0" />
             <TextView
                 android:id="@+id/noiseSliderLabel"
                 android:text="Noise Level"
