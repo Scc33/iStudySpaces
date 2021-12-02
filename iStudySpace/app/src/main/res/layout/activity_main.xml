@@ -11,51 +11,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/studyTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Study"
-                />
+                android:text="Study" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/zoomTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Video Call"
-                />
+                android:text="Video Call" />
         </com.google.android.material.tabs.TabLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:orientation="vertical"
                 android:elevation="2dp"
+                android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/random"
-                    android:layout_width="match_parent"
+                    android:layout_width="244dp"
                     android:layout_height="wrap_content"
                     android:text="Find me something new"
-                    android:tooltipText="Displays a random location"/>
+                    android:tooltipText="Displays a random location" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/filters"
-                    android:layout_width="match_parent"
+                    android:layout_width="243dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:text="Filters"
+                    android:tooltipText="Filter locations by preferences"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:tooltipText="Filter locations by preferences"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </LinearLayout>
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/maps"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -63,21 +69,33 @@
                 android:layout_height="match_parent"
                 android:elevation="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="113dp" />
+                tools:layout_editor_absoluteY="0dp" />
+
+            <Button
+                android:id="@+id/centerMap"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/img"
+                android:elevation="2dp"
+                android:hint="Center map"
+                android:translationX="-20dp"
+                android:translationY="450dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
-<!--        <include layout="@layout/info_card"/>-->
-<!--    </LinearLayout>-->
-
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+    <!--        <include layout="@layout/info_card"/>-->
+    <!--    </LinearLayout>-->
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
