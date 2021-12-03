@@ -88,14 +88,12 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
         android:clickable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:focusable="true"
         android:orientation="vertical"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
-    <!--        <include layout="@layout/info_card"/>-->
-    <!--    </LinearLayout>-->
+        android:layout_width="match_parent"
+        android:layout_height="400dp"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

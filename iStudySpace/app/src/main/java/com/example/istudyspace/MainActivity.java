@@ -256,6 +256,10 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    public void onRadioButtonClicked(View v) {
+        return;
+    }
+
     private void updateMap() {
         // Check for markers that need to be removed by the filters
         for (Marker m: markerLocationMap.keySet()) {
@@ -278,10 +282,10 @@ public class MainActivity extends AppCompatActivity implements
             else if (food && !loc.getFood()) {
                 m.setVisible(false);
             }
-            else if (tabOn.equals("Study") && !noiseLevel.equals("any") && !noiseLevel.equals(loc.getNoiseLevel())) {
+            else if (tabOn.equals("Study") && !(noiseLevel.equals("any") || noiseLevel.equals(loc.getNoiseLevel()))) {
                 m.setVisible(false);
             }
-            else if (tabOn.equals("Zoom") && !zoomInteraction.equals("any") && !zoomInteraction.equals(loc.getZoom())) {
+            else if (tabOn.equals("Zoom") && !(zoomInteraction.equals("any") || zoomInteraction.equals(loc.getZoom()))) {
                 m.setVisible(false);
             }
         }
@@ -435,7 +439,7 @@ public class MainActivity extends AppCompatActivity implements
         List<Location> locations = convertJSON(bufferedReader.lines().collect(Collectors.joining()),
                 Location[].class);
 
-        String dataArr[] = new String[locations.size()];
+        String[] dataArr = new String[locations.size()];
         all_location = new ArrayList<String>();
         all_location.toArray(dataArr);
         for (Location location : locations){

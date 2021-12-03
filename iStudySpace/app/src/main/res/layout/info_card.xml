@@ -21,89 +21,88 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="130dp"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="0.5">
+                android:layout_weight="0.5"
+                android:paddingBottom="5dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/location_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Location Name"
+                    android:layout_alignParentTop="true"
                     android:maxLines="2"
-                    android:autoSizeTextType="uniform"
+                    android:text="Location Name"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:autoSizeMaxTextSize="25sp" />
+                    android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/hours_today"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/location_name"
+                    android:singleLine="true"
+                    android:text="Open"
+                    android:textColor="@color/quantum_googgreen"
+                    android:textSize="16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/amentity_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="start"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/like_percent_holder"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                <LinearLayout
+                    android:id="@+id/like_percent_holder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/like_button_preview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:foregroundGravity="bottom"
+                        android:layout_gravity="end"
+                        android:paddingRight="0.5mm"
+                        android:src="@drawable/thumb_up" />
 
                     <TextView
-                        android:id="@+id/hours_today"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.75"
-                        android:text="Open"
-                        android:singleLine="true"
-                        android:textColor="@color/quantum_googgreen"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/amentity_list"
+                        android:id="@+id/like_percent"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:orientation="horizontal"
-                        android:layout_weight="1"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_gravity="end"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1">
-                        <ImageView
-                            android:id="@+id/like_button_preview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_thumb_up_24"/>
-                        <TextView
-                            android:id="@+id/like_percent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="78%"
-                            android:textSize="16sp"/>
-                    </LinearLayout>
+                        android:text="78%"
+                        android:textAlignment="gravity"
+                        android:textSize="16sp" />
                 </LinearLayout>
-
-
-
-            </LinearLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/location_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="top"
-                android:contentDescription="Picture of location"/>
+                android:layout_weight="1"
+                android:contentDescription="Picture of location" />
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +113,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="2mm">
+
                 <LinearLayout
                     android:layout_width="205dp"
                     android:layout_height="wrap_content"
@@ -137,6 +138,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="2mm"
                             android:text="a short little description" />
 
                         <TextView
@@ -145,11 +147,12 @@
                             android:text="Details"
                             android:textSize="20sp" />
 
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="2mm"
                             android:text="a short little description" />
-
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -162,19 +165,21 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="end">
+                    android:layout_gravity="end"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hours"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/hoursRecycler"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -184,27 +189,60 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Is this a good spot?"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center">
+
                     <ImageView
+                        android:id="@+id/thumbs_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_thumb_up_24"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="10dp"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3"
+                        android:src="@drawable/thumb_up" />
+
                     <ImageView
+                        android:id="@+id/thumbs_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_thumb_down_24"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="10dp"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3"
+                        android:src="@drawable/thumb_down" />
                 </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_gravity="center">-->
+
+<!--                    <RadioGroup-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <RadioButton android:id="@+id/upvote"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:button="@drawable/upvote"-->
+<!--                            android:onClick="onRadioButtonClicked"/>-->
+<!--                        <RadioButton android:id="@+id/downvote"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:button="@drawable/downvote"-->
+<!--                            android:onClick="onRadioButtonClicked"/>-->
+<!--                    </RadioGroup>-->
+
+<!--                </LinearLayout>-->
             </LinearLayout>
 
 

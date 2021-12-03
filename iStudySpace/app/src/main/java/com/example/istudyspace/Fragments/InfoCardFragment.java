@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,12 +24,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class InfoCardFragment extends Fragment {
+public class InfoCardFragment extends Fragment implements View.OnClickListener {
     View view;
     Location location;
     String dayOfWeek;
     HashMap<String, HoursObject> hours = new HashMap<String, HoursObject>();
     List<Integer> amentityResourceIds = new ArrayList<Integer>();
+    ImageView thumbsUp;
+    ImageView thumbsDown;
 
     public class HoursObject {
         private String open;
@@ -82,6 +85,10 @@ public class InfoCardFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        thumbsUp = view.findViewById(R.id.thumbs_up);
+        thumbsDown = view.findViewById(R.id.thumbs_down);
+        thumbsUp.setOnClickListener(this);
+        thumbsDown.setOnClickListener(this);
 
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.amentity_list);
         rv.setAdapter(new AmentityAdapter(amentityResourceIds));
@@ -104,6 +111,21 @@ public class InfoCardFragment extends Fragment {
         //Include link to google maps directions
 
         //Include thumbs up/down component
+    }
+
+    public void onClick(View v) {
+        if (v.getId() == R.id.thumbs_up) {
+            int id = getResources().getIdentifier("com.example.istudyspace:drawable/" + "thumb_up_selected", null, null);
+            thumbsUp.setImageResource(id);
+            id = getResources().getIdentifier("com.example.istudyspace:drawable/" + "thumb_down", null, null);
+            thumbsDown.setImageResource(id);
+        }
+        else if (v.getId() == R.id.thumbs_down) {
+            int id = getResources().getIdentifier("com.example.istudyspace:drawable/" + "thumb_up", null, null);
+            thumbsUp.setImageResource(id);
+            id = getResources().getIdentifier("com.example.istudyspace:drawable/" + "thumb_down_selected", null, null);
+            thumbsDown.setImageResource(id);
+        }
     }
 
     private void initializeHours(View view) {
