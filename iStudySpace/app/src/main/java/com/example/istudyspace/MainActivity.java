@@ -458,13 +458,16 @@ public class MainActivity extends AppCompatActivity implements
             public boolean onQueryTextSubmit(String query) {
                 closeKeyboard();
 
-                if (!all_location.contains(query)) {
+                boolean match = false;
+                for (String l : all_location) {
+                    if (l.toLowerCase().contains(query.toLowerCase())) {
+                        match = true;
+                    }
+                }
+                if (!match) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setMessage("No such location was found");
                     alertDialog.show();
-                }
-                else{
-                    focus_pin(query);
                 }
 
                 List<Location> locations = new ArrayList<Location>();
