@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private Map<Marker, Location> markerLocationMap;
 
+    private List<String> visibleMarkers;
+
     private Button random;
     private Random randomGenerator;
 
@@ -215,9 +217,9 @@ public class MainActivity extends AppCompatActivity implements
             intent.putExtra("maxDist", maxDist);
             filterResultLauncher.launch(intent);
         } else if (v.getId() == R.id.random) {
-            int index = randomGenerator.nextInt(locations.size());
-            Location l = locations.get(index);
-            focus_pin(l.getName());
+            int index = randomGenerator.nextInt(visibleMarkers.size());
+            String l = visibleMarkers.get(index);
+            focus_pin(l);
         } else if (v.getId() == R.id.centerMap) {
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(you.getPosition(), 15));
         }
@@ -229,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void updateMap() {
         // Check for markers that need to be removed by the filters
+        visibleMarkers = new ArrayList<String>();
         for (Marker m: markerLocationMap.keySet()) {
             Location loc = markerLocationMap.get(m);
             // Start with marker visible and remove based on each filter
@@ -254,6 +257,8 @@ public class MainActivity extends AppCompatActivity implements
             }
             else if (!(zoomInteraction.equals("any") || zoomInteraction.equals(loc.getZoom()))) {
                 m.setVisible(false);
+            } else {
+                visibleMarkers.add(m.getTitle());
             }
         }
     }
@@ -284,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        visibleMarkers = new ArrayList<String>();
         map = googleMap;
         map.setOnMarkerClickListener(this);
         map.setOnMapClickListener(this);
@@ -320,6 +326,7 @@ public class MainActivity extends AppCompatActivity implements
                             .title(location.getName())
             );
             markerLocationMap.put(m, location);
+            visibleMarkers.add(location.getName());
         }
         //Set position for current location in middle of campus
         LatLng cur_position = new LatLng(INITIAL_LAT, INITIAL_LONG);
