@@ -97,7 +97,7 @@
                 style="@style/TextAppearance.AppCompat.Medium"/>
             <TextView
                 android:id="@+id/interactionDescription"
-                android:text="How much interaction is required during the video call?"
+                android:text="How much interaction is required during the call?"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tooltipText="Send an email"/>
