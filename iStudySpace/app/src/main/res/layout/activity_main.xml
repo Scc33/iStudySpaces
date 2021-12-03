@@ -37,7 +37,10 @@
                         android:text="Find me something new"
                         android:tooltipText="Displays a random location"
                         app:backgroundTint="@color/Illini_Blue" />
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/filters"
                         android:layout_width="150dp"
@@ -45,10 +48,28 @@
                         android:layout_gravity="top"
                         android:text="Filters"
                         android:tooltipText="Filter locations by preferences"
+                        android:translationY="5dp"
                         app:backgroundTint="@color/Illini_Blue"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" >
+                        </Space>
 
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/centerMap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/Illini_Orange"
+                        android:elevation="4dp"
+                        android:hint="Center map"
+                        android:src="@drawable/center_icon_white"
+                        android:tooltipText="Recenters the map to the user's location"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <androidx.fragment.app.FragmentContainerView
@@ -60,19 +81,6 @@
                     android:background="@drawable/layout_bg"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:layout_editor_absoluteY="0dp" />
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/centerMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/Illini_Orange"
-                    android:elevation="4dp"
-                    android:hint="Center map"
-                    android:src="@drawable/center_icon_white"
-                    android:translationX="-20dp"
-                    android:translationY="450dp"
-                    android:tooltipText="Recenters the map to the user's location"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
