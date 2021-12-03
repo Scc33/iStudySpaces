@@ -95,7 +95,7 @@ public class InfoCardFragment extends Fragment implements View.OnClickListener {
         //Set name
         ( (TextView) view.findViewById(R.id.location_name)).setText(location.getName());
 //        ( (TextView) view.findViewById(R.id.location_name)).setText(location.getHours().toString());
-
+        ( (TextView) view.findViewById(R.id.location_description)).setText(location.getDescription());
         //Set image
         int id = getResources().getIdentifier("com.example.istudyspace:drawable/" + location.getImageFile(), null, null);
         ( (ImageView) view.findViewById(R.id.location_image)).setImageResource(id);
