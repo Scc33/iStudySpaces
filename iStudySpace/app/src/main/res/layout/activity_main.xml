@@ -80,6 +80,7 @@
                 android:hint="Center map"
                 android:translationX="-20dp"
                 android:translationY="450dp"
+                android:tooltipText="Recenters the map to the user's location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
