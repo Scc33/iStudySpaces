@@ -469,19 +469,22 @@ public class MainActivity extends AppCompatActivity implements
                     alertDialog.setMessage("No such location was found");
                     alertDialog.show();
                 }
+                else{
+                    List<Location> locations = new ArrayList<Location>();
 
-                List<Location> locations = new ArrayList<Location>();
-
-                for (Marker m: markerLocationMap.keySet()) {
-                    Location loc = markerLocationMap.get(m);
-                    // Start with marker visible and remove based on each filter
-                    m.setVisible(true);
-                    if (!loc.getName().toLowerCase().matches(".*"+ query.toLowerCase() + ".*")){
-                        locations.add(loc);
-                        m.setVisible(false);
-                        System.out.println(loc.getName());
+                    for (Marker m: markerLocationMap.keySet()) {
+                        Location loc = markerLocationMap.get(m);
+                        // Start with marker visible and remove based on each filter
+                        m.setVisible(true);
+                        if (!loc.getName().toLowerCase().matches(".*"+ query.toLowerCase() + ".*")){
+                            locations.add(loc);
+                            m.setVisible(false);
+                            System.out.println(loc.getName());
+                        }
                     }
                 }
+
+
 
 
                 return false;
