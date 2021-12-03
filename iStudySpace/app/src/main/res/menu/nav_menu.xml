@@ -9,4 +9,12 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
+    <item
+        android:id="@+id/app_bar_menu_dark_mode"
+        android:title="Dark Mode"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/app_bar_menu_favorite"
+        android:title="Favorites"
+        app:showAsAction="never" />
 </menu>

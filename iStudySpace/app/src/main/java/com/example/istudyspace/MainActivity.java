@@ -52,6 +52,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.example.istudyspace.Fragments.InfoCardFragment;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -99,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements
         GoogleMap.OnMapClickListener {
     private Context context;
     private GoogleMap map;
+    private MapStyleOptions dark_style;
+    private MapStyleOptions light_style;
 
     private Button filtersButton;
     private TabLayout tabLayout;
@@ -306,6 +309,13 @@ public class MainActivity extends AppCompatActivity implements
         map.setOnMarkerClickListener(this);
         map.setOnMapClickListener(this);
 
+        light_style = MapStyleOptions.loadRawResourceStyle(
+                this, R.raw.light_map);
+        dark_style = MapStyleOptions.loadRawResourceStyle(
+                        this, R.raw.dark_map);
+
+        map.setMapStyle(light_style);
+
         InputStream inputStream = getResources().openRawResource(R.raw.locations);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         Gson gson = new Gson();
@@ -451,7 +461,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         // Below event is triggered when submit search query.
-        // Below event is triggered when submit search query.
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -484,9 +493,6 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 }
 
-
-
-
                 return false;
             }
             @Override
@@ -494,6 +500,32 @@ public class MainActivity extends AppCompatActivity implements
                 return false;
             }
         });
+
+        MenuItem darkMode  = menu.findItem(R.id.app_bar_menu_dark_mode);
+        MenuItem favorites = menu.findItem(R.id.app_bar_menu_favorite);
+
+        darkMode.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getTitle() == "Dark Mode"){
+                    item.setTitle("Light Mode");
+                    map.setMapStyle(dark_style);
+                }
+                else{
+                    item.setTitle("Dark Mode");
+                    map.setMapStyle(light_style);
+                }
+
+                return false;
+            }
+        });
+        // Because it's actionProviderClass is ShareActionProvider, so after below settings
+        // when click this menu item A sharable applications list will popup.
+        // User can choose one application to share.
+//        ShareActionProvider shareActionProvider = (ShareActionProvider)MenuItemCompat.getActionProvider(shareMenuItem);
+//        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//        shareIntent.setType("image/*");
+//        shareActionProvider.setShareIntent(shareIntent);
 
         return super.onCreateOptionsMenu(menu);
     }
