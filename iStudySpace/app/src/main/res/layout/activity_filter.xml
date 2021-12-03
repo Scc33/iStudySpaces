@@ -32,27 +32,35 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/groupCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/Illini_Blue"
                     android:checked="false"
                     android:text="@string/filter_1"
-                    android:tooltipText="Filter by locations with group work"/>
+                    android:tooltipText="Filter by locations with group work" />
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/coffeeCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/Illini_Blue"
                     android:checked="false"
                     android:text="@string/filter_2"
                     android:tooltipText="Filter by locations with coffee"/>
+
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/foodCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/Illini_Blue"
                     android:checked="false"
+                    android:foregroundTint="@color/Illini_Blue"
                     android:text="@string/filter_3"
-                    android:tooltipText="Filter by locations with food"/>
+                    android:textColorHighlight="@color/Illini_Blue"
+                    android:textColorLink="@color/Illini_Blue"
+                    android:tooltipText="Filter by locations with food" />
             </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView

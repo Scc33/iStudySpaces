@@ -53,6 +53,7 @@ import java.util.stream.Collectors;
 import com.example.istudyspace.Fragments.InfoCardFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements
     private Button random;
     private Random randomGenerator;
 
-    private Button centerButton;
+    private FloatingActionButton centerButton;
 
     private String tabOn = "Study";
     private String noiseLevel = "any";
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(this);
 
         filtersButton = (Button) findViewById(R.id.filters);
-        centerButton = (Button) findViewById(R.id.centerMap);
+        centerButton = (FloatingActionButton) findViewById(R.id.centerMap);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         random = (Button) findViewById(R.id.random);
         randomGenerator = new Random();
