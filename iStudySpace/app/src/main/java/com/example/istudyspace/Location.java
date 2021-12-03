@@ -17,6 +17,7 @@ public class Location {
     private String zoom;
     private String imageFile;
     private JsonObject hours;
+    private String roomReservation;
     private String description;
 
     public String getName() {
@@ -74,6 +75,10 @@ public class Location {
     public void setHours() { this.hours = hours; }
 
     public JsonObject getHours() { return this.hours; }
+
+    public void setRoomReservation() { this.roomReservation = roomReservation; }
+
+    public String getRoomReservation() { return this.roomReservation; }
 
     public void setDescription() { this.description = description; }
 

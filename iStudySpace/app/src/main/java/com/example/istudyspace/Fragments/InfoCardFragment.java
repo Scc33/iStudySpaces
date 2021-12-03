@@ -1,5 +1,7 @@
 package com.example.istudyspace.Fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,8 @@ public class InfoCardFragment extends Fragment implements View.OnClickListener {
     List<Integer> amentityResourceIds = new ArrayList<Integer>();
     ImageView thumbsUp;
     ImageView thumbsDown;
+    Button reservationButton;
+    boolean showReservation = false;
 
     public class HoursObject {
         private String open;
@@ -79,6 +83,9 @@ public class InfoCardFragment extends Fragment implements View.OnClickListener {
                     null);
             amentityResourceIds.add(id);
         }
+        if (location.getRoomReservation() != null) {
+            showReservation = true;
+        }
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -89,6 +96,14 @@ public class InfoCardFragment extends Fragment implements View.OnClickListener {
         thumbsDown = view.findViewById(R.id.thumbs_down);
         thumbsUp.setOnClickListener(this);
         thumbsDown.setOnClickListener(this);
+
+
+        reservationButton = (Button) view.findViewById(R.id.link);
+        if (showReservation) {
+            reservationButton.setOnClickListener(this);
+        } else {
+            reservationButton.setVisibility(View.INVISIBLE);
+        }
 
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.amentity_list);
         rv.setAdapter(new AmentityAdapter(amentityResourceIds));
@@ -125,6 +140,10 @@ public class InfoCardFragment extends Fragment implements View.OnClickListener {
             thumbsUp.setImageResource(id);
             id = getResources().getIdentifier("com.example.istudyspace:drawable/" + "thumb_down_selected", null, null);
             thumbsDown.setImageResource(id);
+        }
+        else if (v.getId() == R.id.link) {
+            Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(location.getRoomReservation()));
+            startActivity(browserIntent);
         }
     }
 

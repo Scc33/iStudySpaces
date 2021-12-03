@@ -42,6 +42,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "The Union is a busy location with plenty of seating. Study spaces are open areas with a lot of activity and noise. The entire first floor is open to studying and has seating with tables in the cafe and has plenty of comfortable sofas to do work in."
   },
   {
@@ -87,6 +88,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": "https://uiuc.libcal.com/spaces?lid=3152",
     "description": "The UGL has a variety of study options throughout the building. The bottom floor is a quiet place to get work done with plenty of tables for individual work. The level right above that is a bit louder and provides a great location to get plenty of group work done at large tables, and it has a cafe to get some work done in as well."
   },
   {
@@ -132,6 +134,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": "https://uiuc.libcal.com/spaces?lid=3604",
     "description": "The ACES library offers a lot of study space throughout the building. It is a quiet place, but has plenty of tables to work at and some nice big windows for some natural light while studying"
   },
   {
@@ -177,6 +180,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description" : "Cafe Paradiso is a busy cafe great for sitting down to get some quick work done. It's a bit noisy, but there's nothing like some caffeine-fueled productivity."
   },
   {
@@ -222,6 +226,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": "https://uiuc.libcal.com/spaces?lid=3606",
     "description" : "Grainger has almost everything you need. There are group study spaces on the first and fourth floors as well as the basement. The second and third floors are quiet and have plenty of individual seating. There are plenty of EWS stations scattered through the first and fourth floors, and a small cafe on the first floor."
   },
   {
@@ -267,6 +272,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "The bookstore is a great place to stop to get some quick work done between classes. The Starbucks on the first floor is the only study location and it has some seating. It's rather loud and busy."
   },
   {
@@ -312,6 +318,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "Brewlab is a bustling cafe that's fairly busy, but has has plenty of tables to get some work done at. There is outdoor and indoor seating, but the outdoor seating is only open when it's warm."
   },
   {
@@ -357,6 +364,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "Cafe Bene is a busy cafe. There are plenty of tables to get work done at, and the snacks that are served are a tasty break from homework."
   },
   {
@@ -402,6 +410,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "Cafe Bene on Gregory is a sort of hidden gem. Its location is a bit out of the way for most, but it's great for getting some work done before/after classes. There are plenty of tables to work at, and the noise level can range anywhere from loud to almost silent depending on the day."
   },
   {
@@ -447,6 +456,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "Siebel is like the hive for CS majors, and it's often full of activity. There are study spots on the first floor and in the basement which have a variety of tables and sofas to work at. A small cafe is on the first floor."
   },
   {
@@ -492,7 +502,8 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
-    "description": "SCD was build for collaboration. The spaces throughout the building are focused on group work, and if you can find an unused classroom to work with a group in, it is a great place to work in a group. While the common areas can be quite busy, there are also a few tables and sofas to work at."
+    "roomReservation": null,
+    "description": "SCD was built for collaboration. The spaces throughout the building are focused on group work, and if you can find an unused classroom to work with a group in, it is a great place to work in a group. While the common areas can be quite busy, there are also a few tables and sofas to work at."
   },
   {
     "name": "Electrical and Computer Engineering Building",
@@ -537,6 +548,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "The ECEB offers a fairly large study area on the first floor to get some work done in. It's a very busy environment, but if you're looking for something a bit quieter the classrooms are open to study usage after class hours."
   },
   {
@@ -582,6 +594,7 @@
     "reservation_link": "buns",
     "like" : 78,
     "dislike" : 21,
+    "roomReservation": null,
     "description": "The CIF is a new study location with a variety of study options. The building is scattered with places to get work done in, and the classrooms are open for use after class hours as well."
   }
 ]
