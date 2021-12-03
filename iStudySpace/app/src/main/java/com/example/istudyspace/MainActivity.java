@@ -261,6 +261,17 @@ public class MainActivity extends AppCompatActivity implements
                 visibleMarkers.add(m.getTitle());
             }
         }
+        boolean noneFound = true;
+        for (Marker m: markerLocationMap.keySet()) {
+            if (m.isVisible()) {
+                noneFound = false;
+            }
+        }
+        if (noneFound) {
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setMessage("No such location was found");
+            alertDialog.show();
+        }
     }
 
     @Override
@@ -446,17 +457,16 @@ public class MainActivity extends AppCompatActivity implements
             public boolean onQueryTextSubmit(String query) {
                 closeKeyboard();
 
-//                if (!all_location.contains(query)) {
-//                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-//                    alertDialog.setMessage("Location is Invalid! ");
-//                    alertDialog.show();
-//                }
-//                else{
-//                    focus_pin(query);
-//                }
+                if (!all_location.contains(query)) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    alertDialog.setMessage("No such location was found");
+                    alertDialog.show();
+                }
+                else{
+                    focus_pin(query);
+                }
 
                 List<Location> locations = new ArrayList<Location>();
-
 
                 for (Marker m: markerLocationMap.keySet()) {
                     Location loc = markerLocationMap.get(m);
