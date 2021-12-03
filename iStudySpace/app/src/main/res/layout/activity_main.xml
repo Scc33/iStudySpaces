@@ -12,24 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/studyTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Study" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/zoomTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Video Call" />
-        </com.google.android.material.tabs.TabLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -78,8 +60,8 @@
                 android:background="@drawable/img"
                 android:elevation="2dp"
                 android:hint="Center map"
-                android:translationX="-20dp"
-                android:translationY="450dp"
+                android:translationX="-30dp"
+                android:translationY="30dp"
                 android:tooltipText="Recenters the map to the user's location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

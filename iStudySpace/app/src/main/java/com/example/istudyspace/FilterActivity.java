@@ -29,7 +29,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private MaterialButtonToggleGroup toggleGroup;
     private Button applyButton;
 
-    private String tabOn;
     private String noiseLevel;
     private Boolean groupWork;
     private Boolean coffee;
@@ -42,7 +41,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            tabOn = extras.getString("tab");
             noiseLevel = extras.getString("noiseLevel");;
             groupWork = extras.getBoolean("groupWork");;
             coffee = extras.getBoolean("coffee");
@@ -158,7 +156,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if (v.getId() == R.id.apply) {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("tab", tabOn);
             intent.putExtra("noiseLevel", noiseLevel);
             intent.putExtra("groupWork", groupWork);
             intent.putExtra("coffee", coffee);

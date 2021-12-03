@@ -66,7 +66,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -99,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements
     private GoogleMap map;
 
     private Button filtersButton;
-    private TabLayout tabLayout;
     private LinearLayout bottomSheetLayout;
 
     private BottomSheetBehavior sheetBehavior;
@@ -111,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private Button centerButton;
 
-    private String tabOn = "Study";
     private String noiseLevel = "any";
     private Boolean groupWork = false;
     private Boolean coffee = false;
@@ -140,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            tabOn = extras.getString("tab");
             noiseLevel = extras.getString("noiseLevel");
             groupWork = extras.getBoolean("groupWork");
             coffee = extras.getBoolean("coffee");
@@ -185,7 +181,6 @@ public class MainActivity extends AppCompatActivity implements
 
         filtersButton = (Button) findViewById(R.id.filters);
         centerButton = (Button) findViewById(R.id.centerMap);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
         random = (Button) findViewById(R.id.random);
         randomGenerator = new Random();
 
@@ -197,49 +192,16 @@ public class MainActivity extends AppCompatActivity implements
 
         markerLocationMap = new HashMap<>();
 
-        if (tabOn.equals("Study")) {
-            tabOn = "Study";
-            tabLayout.selectTab(tabLayout.getTabAt(0));
-        } else {
-            tabOn = "Zoom";
-            tabLayout.selectTab(tabLayout.getTabAt(1));
-        }
+
         filtersButton.setOnClickListener(this);
         centerButton.setOnClickListener(this);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if ((tab.getText()).equals("Study")) {
-                    tabOn = "Study";
-                    //noiseLevel="any";
-                    //zoomInteraction="any";
-                    updateToDefaultPins();
-                } else {
-                    tabOn = "Zoom";
-                    //noiseLevel="any";
-                    //zoomInteraction="any";
-                    updateToZoomPins();
-                }
-                updateMap();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                System.out.println("unselected" + tab.getId());
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                System.out.println("reselected" + tab.getId());
-            }
-        });
+        updateMap();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void onClick(View v) {
         if (v.getId() == R.id.filters) {
             Intent intent = new Intent(this, FilterActivity.class);
-            intent.putExtra("tab", tabOn);
             intent.putExtra("noiseLevel", noiseLevel);
             intent.putExtra("groupWork", groupWork);
             intent.putExtra("coffee", coffee);
@@ -282,10 +244,10 @@ public class MainActivity extends AppCompatActivity implements
             else if (food && !loc.getFood()) {
                 m.setVisible(false);
             }
-            else if (tabOn.equals("Study") && !(noiseLevel.equals("any") || noiseLevel.equals(loc.getNoiseLevel()))) {
+            else if (!(noiseLevel.equals("any") || noiseLevel.equals(loc.getNoiseLevel()))) {
                 m.setVisible(false);
             }
-            else if (tabOn.equals("Zoom") && !(zoomInteraction.equals("any") || zoomInteraction.equals(loc.getZoom()))) {
+            else if (!(zoomInteraction.equals("any") || zoomInteraction.equals(loc.getZoom()))) {
                 m.setVisible(false);
             }
         }
@@ -340,10 +302,10 @@ public class MainActivity extends AppCompatActivity implements
             if (food && !location.getFood()) {
                 continue;
             }
-            if (tabOn.equals("Study") && !noiseLevel.equals("any") && !noiseLevel.equals(location.getNoiseLevel())) {
+            if (!noiseLevel.equals("any") && !noiseLevel.equals(location.getNoiseLevel())) {
                 continue;
             }
-            if (tabOn.equals("Zoom") && !zoomInteraction.equals("any") && !zoomInteraction.equals(location.getZoom())) {
+            if (!zoomInteraction.equals("any") && !zoomInteraction.equals(location.getZoom())) {
                 continue;
             }
             Marker m = googleMap.addMarker(
