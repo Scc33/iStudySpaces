@@ -1,7 +1,7 @@
 package com.example.istudyspace;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import static android.location.Location.distanceBetween;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.icu.text.IDNA;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,40 +24,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import static android.location.Location.distanceBetween;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+//import androidx.appcompat.app.AppCompatDelegate;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.istudyspace.Fragments.InfoCardFragment;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -67,44 +45,36 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-//import com.google.android.gms.common.ConnectionResult;
-//import com.google.android.gms.common.api.GoogleApiClient;
-//import com.google.android.gms.location.LocationListener;
-//import com.google.android.gms.location.LocationRequest;
 
 public class MainActivity extends AppCompatActivity implements
         OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMapClickListener {
-    private Context context;
+
     private GoogleMap map;
     private MapStyleOptions dark_style;
     private MapStyleOptions light_style;
 
     private Button filtersButton;
-    private TabLayout tabLayout;
     private LinearLayout bottomSheetLayout;
 
     private BottomSheetBehavior sheetBehavior;
@@ -139,11 +109,12 @@ public class MainActivity extends AppCompatActivity implements
 
     private final int ZOOM_WIDTH = 94;
     private final int ZOOM_HEIGHT = 135;
-    private final double ZOOM_PIN_OFFSET = 0.0002;
+    // private final double ZOOM_PIN_OFFSET = 0.0002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        context = getApplicationContext();
+        Context context = getApplicationContext();
+
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -190,12 +161,12 @@ public class MainActivity extends AppCompatActivity implements
 
         mapFragment.getMapAsync(this);
 
-        filtersButton = (Button) findViewById(R.id.filters);
-        centerButton = (FloatingActionButton) findViewById(R.id.centerMap);
-        random = (Button) findViewById(R.id.random);
+        filtersButton = findViewById(R.id.filters);
+        centerButton =  findViewById(R.id.centerMap);
+        random = findViewById(R.id.random);
         randomGenerator = new Random();
 
-        bottomSheetLayout = (LinearLayout) findViewById(R.id.bottom_sheet);
+        bottomSheetLayout = findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
         random.setOnClickListener(this);
         sheetBehavior.setPeekHeight(400);
@@ -229,9 +200,9 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void onRadioButtonClicked(View v) {
-        return;
-    }
+//    public void onRadioButtonClicked(View v) {
+//        return;
+//    }
 
     private void updateMap() {
         // Check for markers that need to be removed by the filters
@@ -304,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        visibleMarkers = new ArrayList<String>();
+        visibleMarkers = new ArrayList<>();
         map = googleMap;
         map.setOnMarkerClickListener(this);
         map.setOnMapClickListener(this);
@@ -366,7 +337,6 @@ public class MainActivity extends AppCompatActivity implements
             public void onMarkerDragStart(Marker arg0) {
             }
 
-            @SuppressWarnings("unchecked")
             @Override
             public void onMarkerDragEnd(Marker m) {
                 you = m;
@@ -502,18 +472,20 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         MenuItem darkMode  = menu.findItem(R.id.app_bar_menu_dark_mode);
-        MenuItem favorites = menu.findItem(R.id.app_bar_menu_favorite);
+//        MenuItem favorites = menu.findItem(R.id.app_bar_menu_favorite);
 
         darkMode.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getTitle() == "Dark Mode"){
-                    item.setTitle("Light Mode");
-                    map.setMapStyle(dark_style);
+                if (item.getTitle() == "Light Map"){
+                    item.setTitle("Dark Map");
+                    map.setMapStyle(light_style);
+
                 }
                 else{
-                    item.setTitle("Dark Mode");
-                    map.setMapStyle(light_style);
+                    item.setTitle("Light Map");
+                    map.setMapStyle(dark_style);
+
                 }
 
                 return false;
